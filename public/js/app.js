@@ -68,4 +68,3 @@ function Slider(obj) {
         setInterval(slider.next, slider.rate);
     }
 };
-    
