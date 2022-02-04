@@ -26,7 +26,9 @@ class BannerController {
             const targetPath = `./public/images/${req.file.originalname}`;
 
             fs.rename(tempPath, targetPath, err => {
-                const storagePath = targetPath.replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
+                const storagePath = targetPath
+                    .replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
+                    .replace("/public", "")
                 repository.storeBanner(req.body, storagePath)
                 if (err) return res.send(err);
 
