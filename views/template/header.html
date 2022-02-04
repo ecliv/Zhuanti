@@ -15,7 +15,7 @@
 />
 
 <!--CSS-->
-<link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" href="css/style.css" />
 
 <!-- Navbar -->
 <nav
@@ -23,7 +23,7 @@
   class="navbar navbar-dark bg-dark navbar-expand-sm py-0 fixed-top"
 >
   <a href="#" class="navbar-brand">
-    <img src="public/images/logo.jpg" alt="logo" style="width: 40px" />
+    <img src="images/logo.jpg" alt="logo" style="width: 40px" />
     Cave Cafe
   </a>
 
@@ -60,73 +60,42 @@
   </div>
 </nav>
 
-<!-- Carousel -->
-<div id="carouselHeader" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <li data-target="#carouselHeader" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselHeader" data-slide-to="1"></li>
-    <li data-target="#carouselHeader" data-slide-to="2"></li>
-  </ul>
+<!-- Slider main container -->
+<div class="slider slider-1">
+  <!-- Your content -->
+  <div class="photos">
+    <img src="images/coffeePlace.jpg" class="shown" />
+    <img src="images/differentCoffees.jpg" />
+    <img src="images/coffeePlate.jpg" />
 
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="overlay-image"
-        style="
-          background-image: url(public/images/differentCoffees.jpg);
-        ">
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <div
-        class="overlay-image"
-        style="background-image: url(public/images/coffeeSimple.jpg)"
-        >
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <div
-        class="overlay-image"
-        style="background-image: url(public/images/caveImage.jpg)"
-        >
-      </div>
-    </div>
-  </div>
-
-  <!-- Left and right controls -->
-      <a class="carousel-control-prev" href="#carouselHeader" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#carouselHeader" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
+    <!-- Prev/next buttons -->
+    <div class="buttons">
+      <div class="prev"></div>
+      <div class="next"></div>
     </div>
   </div>
 </div>
 
-  <!-- jQuery.js -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
+<!-- jQuery.js -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"
+></script>
 
-    <!--Popper.js-->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
+<!--Popper.js-->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"
+></script>
 
-    <!--Bootstrap JS-->
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"
-    ></script>
+<!--Bootstrap JS-->
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+  crossorigin="anonymous"
+></script>
 
-    <!--JS-->
-    <script src="public/js/app.js"></script>
+<!--JS-->
+<script src="js/app.js"></script>
