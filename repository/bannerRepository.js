@@ -4,6 +4,7 @@ class BannerRepository {
     getBanners(valueCallback) {
         connection.query("Select id, image_url, redirect_url from banners", (err, rows, fields) => {
             if (err != null) {
+                console.log(err)
                 valueCallback([])
             } else {
                 valueCallback(rows)
