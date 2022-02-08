@@ -1,16 +1,22 @@
-const repository = require('../repository/bannerRepository')
+const repository = require('../repository/productRepository')
 const multer = require('multer')
 const fs = require("fs")
 
-class BannerController {
-    getBanners(req, res, next) {
-        repository.getBanners((data) => {
+class ProductController {
+    getProducts(req, res, next) {
+        repository.getProducts((data) => {
             res.send(data)
         })
     }
 
-    createBanner(req, res, next) {
-        let upload = multer({ dest: "./public/images" }).single('image');
+    deleteProduct(req, res, next) {
+        const id = req.body.id
+        repository.deleteProduct(id)
+        res.sendStatus(204)
+    }
+
+    createProduct(req, res, next) {
+        let upload = multer({ dest: "./public/images/product" }).single('image');
 
         upload(req, res, function(err) {
             if (req.fileValidationError) {
@@ -22,28 +28,22 @@ class BannerController {
             }
 
             const tempPath = req.file.path;
-            const targetPath = `./public/images/${req.file.originalname}`;
+            const targetPath = `./public/images/product/${req.file.originalname}`;
 
             fs.rename(tempPath, targetPath, err => {
                 const storagePath = targetPath
                     .replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
                     .replace("/public", "")
-                repository.storeBanner(req.body, storagePath)
+                repository.createProduct(req.body, storagePath)
                 if (err) return res.send(err);
 
                 res.sendStatus(201)
             });
-        });
+        })
     }
 
-    deleteBanner(req, res, next) {
-        const id = req.body.id
-        repository.deleteBanner(id)
-        res.sendStatus(204)
-    }
-
-    editBanner(req, res, next) {
-        let upload = multer({ dest: "./public/images" }).single('image');
+    editProduct(req, res, next) {
+        let upload = multer({ dest: "./public/images/product" }).single('image');
 
         upload(req, res, function(err) {
             if (req.fileValidationError) {
@@ -55,19 +55,19 @@ class BannerController {
             }
 
             const tempPath = req.file.path;
-            const targetPath = `./public/images/${req.file.originalname}`;
+            const targetPath = `./public/images/product/${req.file.originalname}`;
 
             fs.rename(tempPath, targetPath, err => {
                 const storagePath = targetPath
                     .replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
                     .replace("/public", "")
-                repository.editBanner(req.body, storagePath)
+                repository.editProduct(req.body, storagePath)
                 if (err) return res.send(err);
 
-                res.sendStatus(204)
+                res.sendStatus(201)
             });
-        });
+        })
     }
 }
 
-module.exports = new BannerController()
+module.exports = new ProductController()
