@@ -1,6 +1,5 @@
 const repository = require('../repository/bannerRepository')
 const multer = require('multer')
-const path = require("path")
 const fs = require("fs")
 
 class BannerController {
@@ -59,7 +58,9 @@ class BannerController {
             const targetPath = `./public/images/${req.file.originalname}`;
 
             fs.rename(tempPath, targetPath, err => {
-                const storagePath = targetPath.replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
+                const storagePath = targetPath
+                    .replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
+                    .replace("/public", "")
                 repository.editBanner(req.body, storagePath)
                 if (err) return res.send(err);
 
