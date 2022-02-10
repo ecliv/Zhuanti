@@ -25,6 +25,22 @@ class ProductRepository {
         const query = `update products SET name = ?, image_url = ?, price = ?, description = ?, category_id = ?, weight = ?, stock = ? where id = ?`
         connection.query(query, [data.name, imageUrl, data.price, data.description, data.category_id, data.weight, data.stock, data.id])
     }
+
+    setStock(id, stock) {
+        const query = `update products SET stock = ? where id = ?`
+        console.log(query)
+        connection.query(query, [stock, id])
+    }
+
+    setPrice(id, price) {
+        const query = `update products set price = ? where id = ?`
+        connection.query(query, [price, id])
+    }
+
+    setWeight(id, weight) {
+        const query = `update products set weight = ? where id = ?`
+        connection.query(query, [weight, id])
+    }
 }
 
 module.exports = new ProductRepository()

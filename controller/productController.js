@@ -68,6 +68,51 @@ class ProductController {
             });
         })
     }
+
+    updateStock(req, res, next) {
+        const id = req.params.productId
+        const stock = req.body.stock
+
+        if (stock < 0) {
+            res.status(400)
+            res.send({
+                "error": "Invalid stock amount"
+            })
+        }
+
+        repository.setStock(id, stock)
+        res.sendStatus(200)
+    }
+
+    updatePrice(req, res, next) {
+        const id = req.params.productId
+        const price = req.body.price
+
+        if (price < 0) {
+            res.status(400)
+            res.send({
+                "error": "Invalid price amount"
+            })
+        }
+
+        repository.setPrice(id, price)
+        res.sendStatus(200)
+    }
+
+    updateWeight(req, res, next) {
+        const id = req.params.productId
+        const weight = req.body.weight
+
+        if (weight < 0) {
+            res.status(400)
+            res.send({
+                "error": "Invalid weight amount"
+            })
+        }
+
+        repository.setWeight(id, weight)
+        res.sendStatus(200)
+    }
 }
 
 module.exports = new ProductController()

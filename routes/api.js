@@ -19,9 +19,13 @@ router.get('/product', productController.getProducts);
 router.post('/product', productController.createProduct);
 router.delete('/product', productController.deleteProduct);
 router.patch('/product', productController.editProduct);
+router.post('/product/:productId/stock', productController.updateStock);
+router.post('/product/:productId/price', productController.updatePrice);
+router.post('/product/:productId/weight', productController.updateWeight);
 
 router.get('/autocomplete', (request, response, next) => {
     response.sendStatus(204)
+    response.status
 })
 
 module.exports = router;
