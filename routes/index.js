@@ -12,6 +12,10 @@ router.get('/about', function(req, res, next) {
   res.render('about/about.html')
 });
 
+router.get('/banner', function(req, res, next){
+  res.render('template/header.html')
+});
+
 // GET VS POST -> HTTP Method
 // PATCH, DELETE
 
