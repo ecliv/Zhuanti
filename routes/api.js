@@ -1,9 +1,10 @@
-var express = require('express')
+const express = require('express')
 
-var router = express.Router();
-var bannerController = require('../controller/bannerController')
-var categoryController = require('../controller/categoryController')
-var productController = require('../controller/productController')
+const router = express.Router();
+const bannerController = require('../controller/bannerController')
+const categoryController = require('../controller/categoryController')
+const productController = require('../controller/productController')
+const userController = require('../controller/userController')
 
 router.get('/banner', bannerController.getBanners);
 router.post('/banner', bannerController.createBanner);
@@ -22,6 +23,8 @@ router.patch('/product', productController.editProduct);
 router.post('/product/:productId/stock', productController.updateStock);
 router.post('/product/:productId/price', productController.updatePrice);
 router.post('/product/:productId/weight', productController.updateWeight);
+
+router.post('/user/register', userController.registerUser);
 
 router.get('/autocomplete', (request, response, next) => {
     response.sendStatus(204)
