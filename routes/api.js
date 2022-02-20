@@ -25,6 +25,7 @@ router.post('/product/:productId/price', productController.updatePrice);
 router.post('/product/:productId/weight', productController.updateWeight);
 
 router.post('/user/register', userController.registerUser);
+router.post('/user/login', userController.login);
 
 router.get('/autocomplete', (request, response, next) => {
     response.sendStatus(204)
