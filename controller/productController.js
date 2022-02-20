@@ -4,9 +4,15 @@ const fs = require("fs")
 
 class ProductController {
     getProducts(req, res, next) {
-        repository.getProducts((data) => {
-            res.send(data)
-        })
+        if (!!req.query.category_id) {
+            repository.getProductsWithCategory(req.query.category_id, (data) => {
+                res.send(data)
+            })
+        } else {
+            repository.getProducts((data) => {
+                res.send(data)
+            })
+        }
     }
 
     deleteProduct(req, res, next) {

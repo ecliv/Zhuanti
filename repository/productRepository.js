@@ -11,6 +11,16 @@ class ProductRepository {
         })
     }
 
+    getProductsWithCategory(categoryId, valueCallback) {
+        connection.query("select products.id, category_id, products.name, image_url, price, description, weight, stock, categories.name as category_name from products JOIN categories on products.category_id = categories.id where products.category_id = ?", [categoryId], (err, rows, fields) => {
+            if (err != null) {
+                valueCallback([])
+            } else {
+                valueCallback(rows)
+            }
+        })
+    }
+
     deleteProduct(id) {
         const query = `delete from products where id = ?`
         connection.query(query, [id])
