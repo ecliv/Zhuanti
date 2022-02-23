@@ -36,13 +36,16 @@ class ProductController {
                 return
             }
 
+            const rawToken = process.env.SECRET + ":" + user.id + ":" + Date.now()
+
             res.send({
                 is_success: true,
                 user: {
                     firstName: user.fisrt_name,
                     lastName: user.last_name,
                     isStaff: user.is_staff == 1,
-                    email: user.email
+                    email: user.email,
+                    token: btoa(rawToken)
                 }
             })
         })

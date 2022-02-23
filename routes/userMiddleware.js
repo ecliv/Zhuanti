@@ -24,6 +24,8 @@ class UserMiddleware {
                 }
                 return
             })
+        } else {
+            res.sendStatus(401)
         }
     }
 
