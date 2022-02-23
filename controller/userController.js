@@ -8,6 +8,11 @@ class ProductController {
         res.sendStatus(201)
     }
 
+    getMe(req, res, next) {
+        console.log(req)
+        res.sendStatus(200)
+    }
+
     login(req, res, next) {
         const email = req.body.email
 
