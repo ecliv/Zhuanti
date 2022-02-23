@@ -17,13 +17,21 @@ class UserMiddleware {
         if (process.env.SECRET === decodedHeaders[0] && !!decodedHeaders[1]) {
             repository.getUserById(decodedHeaders[1], (user) => {
                 if (!!user) {
-                    console.log(user)
+                    res.locals.user = user
                     next()
                 } else {
                     res.sendStatus(401)
                 }
                 return
             })
+        }
+    }
+
+    validateStaff(req, res, next) {
+        if (!!res.locals.user && res.locals.user.is_staff) {
+            next()
+        } else {
+            res.sendStatus(403)
         }
     }
 }

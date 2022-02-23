@@ -9,8 +9,7 @@ class ProductController {
     }
 
     getMe(req, res, next) {
-        console.log(req)
-        res.sendStatus(200)
+        res.send(res.locals.user)
     }
 
     login(req, res, next) {
