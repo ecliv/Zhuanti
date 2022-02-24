@@ -1,11 +1,3 @@
-<title>Cave Cafe</title>
-
-<!-- Google Font -->
-<link
-  href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700"
-  rel="stylesheet"
-/>
-
 <!-- Bootstrap CSS -->
 <link
   rel="stylesheet"
@@ -18,15 +10,11 @@
 <link rel="stylesheet" href="css/style.css" />
 
 <!-- Navbar -->
-<nav
-  id="mainNavbar"
-  class="navbar navbar-dark bg-dark navbar-expand-sm py-0 fixed-top"
->
+<nav id="mainNavbar" class="navbar navbar-expand-sm py-0 px-0 fixed-top">
   <a href="#" class="navbar-brand">
     <img src="images/logo.jpg" alt="logo" style="width: 40px" />
     Cave Cafe
   </a>
-
   <button
     class="navbar-toggler"
     data-toggle="collapse"
@@ -40,40 +28,30 @@
   <div class="collapse navbar-collapse" id="navLinks">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a href="" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link">About</a>
+        <a href="about" class="nav-link">About</a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link">Menu</a>
+        <a href="menu" class="nav-link">Menu</a>
       </li>
-      <!-- <li class="nav-item">
-            <a href="" class="nav-link">Account</a>
-          </li> -->
+      <li class="nav-item">
+        <a href="login" class="nav-link">Account</a>
+      </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a href="" class="nav-link">Account</a>
+        <a href="" class="nav-link">Cart</a>
       </li>
     </ul>
   </div>
 </nav>
 
 <!-- Slider main container -->
-<div class="slider slider-1">
+<div class="slider slider-1 px-0">
   <!-- Your content -->
-  <div class="photos">
-    <img src="images/coffeePlace.jpg" class="shown" />
-    <img src="images/differentCoffees.jpg" />
-    <img src="images/coffeePlate.jpg" />
-
-    <!-- Prev/next buttons -->
-    <div class="buttons">
-      <div class="prev"></div>
-      <div class="next"></div>
-    </div>
-  </div>
+  <div class="photos" id="banners"></div>
 </div>
 
 <!-- jQuery.js -->

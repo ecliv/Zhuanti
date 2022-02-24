@@ -1,10 +1,22 @@
 body {
-  font: 14px "Gabriola", san-serif, Helvetica, Arial, sans-serif;
+  font: 14px "Gabriola", serif, Helvetica, Arial, sans-serif;
+  background: white;
 }
 
-nav ul a {
-  display: block;
+#mainNavbar {
   font-size: 1.5rem;
+}
+
+#mainNavbar .nav-link {
+  color: white;
+}
+
+#mainNavbar .nav-link:hover {
+  color: #c7976f;
+}
+
+#mainNavbar .navbar-brand {
+  color: #c7976f;
 }
 
 .slider {
@@ -55,30 +67,23 @@ nav ul a {
   top: 175px;
 }
 
-.container {
-  width: 1000px;
-  height: 1000px;
-
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+.container-fluid {
+  width: 100%;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0px;
-  right: 0px;
-  height: 500px;
-  width: 100%;
-  background-color: blue;
+h1,
+h2 {
+  font-weight: 100;
+  font-size: 3rem;
 }
 
-.container .row img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.navbar.scrolled {
+  background: #593e2c;
+  transition: background 500ms;
+}
+
+@media (min-width: 1200px) {
+  .content {
+    margin-top: 100px;
+  }
 }
