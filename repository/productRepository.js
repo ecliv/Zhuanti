@@ -38,7 +38,6 @@ class ProductRepository {
         let lastRow = null
         for (const index in rows) {
             const row = rows[index]
-            console.log(row)
             if (!!lastRow && row.id === lastRow.id) {
                 lastRow.children.push({
                     id: row.child_id,
@@ -51,7 +50,6 @@ class ProductRepository {
                 })
             } else {
                 if (!!lastRow) {
-                    console.log(lastRow)
                     result.push(lastRow)
                 }
                 
@@ -84,7 +82,6 @@ class ProductRepository {
             }
         }
         if (!!lastRow) {
-            console.log(lastRow)
             result.push(lastRow)
         }
 
@@ -97,7 +94,7 @@ class ProductRepository {
     }
 
     createProduct(data, imageUrl) {
-        const query = `insert into products values(NULL, ?, ?, ?, ?, ?, ?, ?)`
+        const query = `insert into products values(NULL, ?, ?, ?, ?, ?, ?, ?, NULL)`
         connection.query(query, [data.name, imageUrl, data.price, data.description, data.category_id, data.weight, data.stock])
     }
 
@@ -120,6 +117,11 @@ class ProductRepository {
     setWeight(id, weight) {
         const query = `update products set weight = ? where id = ?`
         connection.query(query, [weight, id])
+    }
+
+    addVariant(parent_id, data, imageUrl) {
+        const query = `insert into products values(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`
+        connection.query(query, [data.name, imageUrl, data.price, data.description, data.category_id, data.weight, data.stock, parseInt(parent_id, 10)])
     }
 }
 

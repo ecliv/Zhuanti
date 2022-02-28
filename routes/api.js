@@ -23,6 +23,7 @@ router.patch('/product', productController.editProduct);
 router.post('/product/:productId/stock', productController.updateStock);
 router.post('/product/:productId/price', productController.updatePrice);
 router.post('/product/:productId/weight', productController.updateWeight);
+router.post('/product/:productId/variant', productController.addVariant);
 
 router.post('/user/register', userController.registerUser);
 router.post('/user/login', userController.login);
