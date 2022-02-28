@@ -119,6 +119,34 @@ class ProductController {
         repository.setWeight(id, weight)
         res.sendStatus(200)
     }
+
+    addVariant(req, res, next) {
+        const parent_id = req.params.productId
+        let upload = multer({ dest: "./public/images/product" }).single('image');
+
+        upload(req, res, function(err) {
+            if (req.fileValidationError) {
+                return res.send("invalid file");
+            } else if (err instanceof multer.MulterError) {
+                return res.send(err);
+            } else if (err) {
+                return res.send(err);
+            }
+
+            const tempPath = req.file.path;
+            const targetPath = `./public/images/product/${req.file.originalname}`;
+
+            fs.rename(tempPath, targetPath, err => {
+                const storagePath = targetPath
+                    .replace(".", `${process.env.BASE_URL}:${process.env.PORT}`)
+                    .replace("/public", "")
+                repository.addVariant(parent_id, req.body, storagePath)
+                if (err) return res.send(err);
+
+                res.sendStatus(201)
+            });
+        })
+    }
 }
 
 module.exports = new ProductController()
