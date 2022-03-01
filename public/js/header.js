@@ -1,6 +1,6 @@
 $(window).ready(function () {
     $.ajax({
-        url: "http://localhost:3000/api/banner",
+        url: "/api/banner",
 
     }).done(function (banners) {
         var html = '';

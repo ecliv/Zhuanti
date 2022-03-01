@@ -5,16 +5,19 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
   // res.send("AAAAA!!!");
-  res.render('home/index.html');
+  const baseUrl = process.env.BASE_URL
+  res.render('home/index.html', { baseUrl })
 });
 
 
 router.get('/about', function (req, res, next) {
-  res.render('about/about.html')
+  const baseUrl = process.env.BASE_URL
+  res.render('about/about.html', { baseUrl })
 });
 
 router.get('/menu', function (req, res, next) {
-  res.render('menu/menu.html')
+  const baseUrl = process.env.BASE_URL
+  res.render('menu/menu.html', { baseUrl })
 });
 
 router.get('/admin', function (req, res, next) {
@@ -26,7 +29,8 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/help', function (req, res, next) {
-  res.render('help/help.html')
+  const baseUrl = process.env.BASE_URL
+  res.render('help/help.html', { baseUrl })
 });
 // GET VS POST -> HTTP Method
 // PATCH, DELETE
