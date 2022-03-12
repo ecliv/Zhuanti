@@ -123,6 +123,21 @@ class ProductRepository {
         const query = `insert into products values(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`
         connection.query(query, [data.name, imageUrl, data.price, data.description, data.category_id, data.weight, data.stock, parseInt(parent_id, 10)])
     }
+
+    getStockForProduct(productId, valueCallback) {
+        const query = `select stock from products where id = ?`
+        connection.query(query, [productId], (err, rows, field) => {
+            if (err != null) {
+                console.log(err)
+                valueCallback(0)
+            } else {
+                if(rows.length == 0) {
+                    valueCallback(0)
+                }
+                valueCallback(rows[0].stock)
+            }
+        })
+    }
 }
 
 module.exports = new ProductRepository()

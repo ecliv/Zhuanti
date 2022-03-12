@@ -1,4 +1,5 @@
 const repository = require('../repository/cartRepository')
+const productRepository = require('../repository/productRepository')
 
 class CartController {
     getUserCart(req, res, next) {
@@ -19,15 +20,21 @@ class CartController {
 
     addToCart(req, res, next) {
         const product_id = req.body.product_id
-
-        repository.getProductCountInCart(res.locals.user.id, product_id, (qty) => {
-            if (qty == 0) {
-                repository.addToCart(res.locals.user.id, product_id)
-            } else {
-                repository.incrementProductInCart(res.locals.user.id, product_id)
-            }
-
-            res.sendStatus(200)
+        
+        productRepository.getStockForProduct(product_id, (stock) => {
+            repository.getProductCountInCart(res.locals.user.id, product_id, (qty) => {
+                if (qty == 0 && stock >= 1) {
+                    repository.addToCart(res.locals.user.id, product_id)
+                    res.sendStatus(200)
+                } else if (stock >= qty + 1) {
+                    repository.incrementProductInCart(res.locals.user.id, product_id)
+                    res.sendStatus(200)
+                } else {
+                    res.send({
+                        "error": "Insufficient stock. Stock remaining is " + stock
+                    }, 400)
+                }
+            })
         })
     }
 
