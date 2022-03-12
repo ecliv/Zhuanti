@@ -4,6 +4,7 @@ const router = express.Router();
 const userController = require('../controller/userController')
 const cartController = require('../controller/cartController')
 const addressController = require('../controller/addressController')
+const checkoutController = require('../controller/checkoutController')
 const middleware = require('./userMiddleware')
 
 // request -> router -> middleware -> controller
@@ -23,5 +24,7 @@ router.delete('/address', addressController.deleteUserAddress)
 router.get('/cart', cartController.getUserCart)
 router.post('/cart', cartController.addToCart)
 router.delete('/cart', cartController.deleteFromCart)
+
+router.post('/checkout', checkoutController.checkout)
 
 module.exports = router;

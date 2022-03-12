@@ -12,7 +12,7 @@ class CartRepository {
     }
 
     getUserCart(userId, valueCallback) {
-        const query = `select p.name, parent.name as parent_name, p.image_url, p.price, p.description, c.qty, p.price * c.qty as 'total' from cart_items c 
+        const query = `select p.id, p.name, parent.name as parent_name, p.image_url, p.price, p.description, c.qty, p.price * c.qty as 'total' from cart_items c 
         join products p on c.product_id = p.id
         join products parent on p.parent_id = parent.id
         where c.user_id = ?`
@@ -37,7 +37,7 @@ class CartRepository {
                 if(rows.length == 0) {
                     valueCallback(0)
                 }
-                valueCallback(rows[0].qty)
+                valueCallback(rows[0] && rows[0].qty)
             }
         })
     }

@@ -134,7 +134,20 @@ class ProductRepository {
                 if(rows.length == 0) {
                     valueCallback(0)
                 }
-                valueCallback(rows[0].stock)
+                valueCallback(rows[0] && rows[0].stock)
+            }
+        })
+    }
+
+    getStockForProducts(productIds, valueCallback) {
+        const flattenedProductIds = productIds.join(", ")
+        console.log(flattenedProductIds)
+        const query = `select id, stock from products where id in (?)`
+        connection.query(query, [flattenedProductIds], (err, rows, field) => {
+            if (err != null) {
+                valueCallback([])
+            } else {
+                valueCallback(rows)
             }
         })
     }
