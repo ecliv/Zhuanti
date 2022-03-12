@@ -1,9 +1,14 @@
 var connection = require('./connection')
 
 class CartRepository {
-    addToCart(userId, productId, qty) {
-        const query = `insert into cart_items values(NULL, ?, ?, ?)`
-        connection.query(query, [userId, productId, qty])
+    addToCart(userId, productId) {
+        const query = `insert into cart_items values(NULL, ?, ?, 1)`
+        connection.query(query, [userId, productId])
+    }
+
+    incrementProductInCart(userId, productId) {
+        const query = `update cart_items set qty = qty + 1 where user_id = ? and product_id = ?`
+        connection.query(query, [userId, productId])
     }
 
     getUserCart(userId, valueCallback) {
@@ -20,6 +25,31 @@ class CartRepository {
                 valueCallback(rows)
             }
         })
+    }
+
+    getProductCountInCart(userId, productId, valueCallback) {
+        const query = `select qty from cart_items where user_id = ? and product_id = ?`
+        connection.query(query, [userId, productId], (err, rows, field) => {
+            if (err != null) {
+                console.log(err)
+                valueCallback(0)
+            } else {
+                if(rows.length == 0) {
+                    valueCallback(0)
+                }
+                valueCallback(rows[0].qty)
+            }
+        })
+    }
+
+    decreateProductInCart(userId, productId) {
+        const query = `update cart_items set qty = qty - 1 where user_id = ? and product_id = ?`
+        connection.query(query, [userId, productId])
+    }
+
+    removeProductFromCart(userId, productId) {
+        const query = `delete from cart_items where user_id = ? and product_id = ?`
+        connection.query(query, [userId, productId])
     }
 }
 

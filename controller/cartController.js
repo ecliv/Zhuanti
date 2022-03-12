@@ -19,9 +19,31 @@ class CartController {
 
     addToCart(req, res, next) {
         const product_id = req.body.product_id
-        const qty = req.body.qty
-        repository.addToCart(res.locals.user.id, product_id, qty)
-        res.sendStatus(200)
+
+        repository.getProductCountInCart(res.locals.user.id, product_id, (qty) => {
+            if (qty == 0) {
+                repository.addToCart(res.locals.user.id, product_id)
+            } else {
+                repository.incrementProductInCart(res.locals.user.id, product_id)
+            }
+
+            res.sendStatus(200)
+        })
+    }
+
+    deleteFromCart(req, res, next) {
+        const product_id = req.body.product_id
+        const userId = res.locals.user.id
+        repository.getProductCountInCart(userId, product_id, (qty) => {
+            if (qty == 1) {
+                repository.removeProductFromCart(userId, product_id)
+            } else {
+                repository.decreateProductInCart(userId, product_id)
+            }
+
+
+            res.sendStatus(200)
+        })
     }
 }
 
