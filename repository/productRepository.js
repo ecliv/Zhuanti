@@ -133,22 +133,29 @@ class ProductRepository {
             } else {
                 if(rows.length == 0) {
                     valueCallback(0)
+                } else {
+                    valueCallback(rows[0] && rows[0].stock || 0)
                 }
-                valueCallback(rows[0] && rows[0].stock)
             }
         })
     }
 
     getStockForProducts(productIds, valueCallback) {
         const flattenedProductIds = productIds.join(", ")
-        console.log(flattenedProductIds)
-        const query = `select id, stock from products where id in (?)`
-        connection.query(query, [flattenedProductIds], (err, rows, field) => {
+        const query = `select id, stock from products where id in (${flattenedProductIds})`
+        connection.query(query, (err, rows, field) => {
             if (err != null) {
                 valueCallback([])
             } else {
                 valueCallback(rows)
             }
+        })
+    }
+
+    reduceStockForProducts(cartItems) {
+        cartItems.forEach((item) => {
+            const query = `update products set stock = stock - ? where id = ?`
+            connection.query(query, [item.qty, item.id])
         })
     }
 }

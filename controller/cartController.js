@@ -28,11 +28,13 @@ class CartController {
                     res.sendStatus(200)
                 } else if (stock >= qty + 1) {
                     repository.incrementProductInCart(res.locals.user.id, product_id)
+                    console.log("up here")
                     res.sendStatus(200)
                 } else {
-                    res.send({
+                    console.log("down here")
+                    res.status(400).send({
                         "error": "Insufficient stock. Stock remaining is " + stock
-                    }, 400)
+                    })
                 }
             })
         })

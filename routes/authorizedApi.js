@@ -5,7 +5,8 @@ const userController = require('../controller/userController')
 const cartController = require('../controller/cartController')
 const addressController = require('../controller/addressController')
 const checkoutController = require('../controller/checkoutController')
-const middleware = require('./userMiddleware')
+const orderController = require('../controller/orderController');
+const middleware = require('./userMiddleware');
 
 // request -> router -> middleware -> controller
 // middleware
@@ -26,5 +27,6 @@ router.post('/cart', cartController.addToCart)
 router.delete('/cart', cartController.deleteFromCart)
 
 router.post('/checkout', checkoutController.checkout)
+router.get('/orders', orderController.getUserOrders)
 
 module.exports = router;

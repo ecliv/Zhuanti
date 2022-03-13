@@ -36,8 +36,9 @@ class CartRepository {
             } else {
                 if(rows.length == 0) {
                     valueCallback(0)
+                } else {
+                    valueCallback(rows[0] && rows[0].qty || 0)
                 }
-                valueCallback(rows[0] && rows[0].qty)
             }
         })
     }
@@ -50,6 +51,11 @@ class CartRepository {
     removeProductFromCart(userId, productId) {
         const query = `delete from cart_items where user_id = ? and product_id = ?`
         connection.query(query, [userId, productId])
+    }
+
+    clearUserCart(userId) {
+        const query = `delete from cart_items where user_id = ?`
+        connection.query(query, [userId])
     }
 }
 
