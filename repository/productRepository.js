@@ -123,6 +123,41 @@ class ProductRepository {
         const query = `insert into products values(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`
         connection.query(query, [data.name, imageUrl, data.price, data.description, data.category_id, data.weight, data.stock, parseInt(parent_id, 10)])
     }
+
+    getStockForProduct(productId, valueCallback) {
+        const query = `select stock from products where id = ?`
+        connection.query(query, [productId], (err, rows, field) => {
+            if (err != null) {
+                console.log(err)
+                valueCallback(0)
+            } else {
+                if(rows.length == 0) {
+                    valueCallback(0)
+                } else {
+                    valueCallback(rows[0] && rows[0].stock || 0)
+                }
+            }
+        })
+    }
+
+    getStockForProducts(productIds, valueCallback) {
+        const flattenedProductIds = productIds.join(", ")
+        const query = `select id, stock from products where id in (${flattenedProductIds})`
+        connection.query(query, (err, rows, field) => {
+            if (err != null) {
+                valueCallback([])
+            } else {
+                valueCallback(rows)
+            }
+        })
+    }
+
+    reduceStockForProducts(cartItems) {
+        cartItems.forEach((item) => {
+            const query = `update products set stock = stock - ? where id = ?`
+            connection.query(query, [item.qty, item.id])
+        })
+    }
 }
 
 module.exports = new ProductRepository()
