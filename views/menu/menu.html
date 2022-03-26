@@ -1,6 +1,9 @@
 <html>
-  <title>Cave Cafe's Menu</title>
-  <%- include('../template/header.html'); %>
+<title>Cave Cafe's Menu</title>
+<%- include('../template/header.html'); %>
+
+  <link rel="stylesheet" href="css/style.css" />
+
   <body>
     <section class="container-fluid">
       <div class="row justify-content-center">
@@ -11,169 +14,28 @@
     <section class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-lg-3">
-          <a href="">
-            <h3 class="text-center">All</h3></a>
+          <h3 class="text-center" id="selectionAll" style="cursor:pointer;">All</h3>
         </div>
 
         <div class="col-lg-3">
-          <a href="">
-            <h3 class="text-center">Drink</h3></a>
+          <h3 class="text-center" id="selectionDrink" style="cursor:pointer;">Drink</h3>
         </div>
-          <div class="col-lg-3">
-<a href="">
-            <h3 class="text-center">Bean</h3></a>
+        <div class="col-lg-3">
+          <h3 class="text-center" id="selectionBean" style="cursor:pointer;">Bean</h3>
         </div>
-          <div class="col-lg-3">
-<a href="">
-            <h3 class="text-center">Merch</h3></a>
+        <div class="col-lg-3">
+
+          <h3 class="text-center" id="selectionMerch" style="cursor:pointer;">Merch</h3>
+
         </div>
     </section>
 
-    <section class="container-fluid">
-      <div class="row justify-content-center content">
+    <div id="products">
 
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/latte.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Coffee Latte</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
+    </div>
 
-        <div class="col-lg-4">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/matchaLatte.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Matcha Latte</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/coldBrew.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Cold Brew</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-    <section class="container-fluid">
-      <div class="row justify-content-center content">
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/baliCoffee.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Balinese Coffee Bean</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/luwakCoffee.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Luwak Coffee</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/papuaCoffee.png" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Papuanese Coffee Bean</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container-fluid" id="merchSection">
-      <div class="row justify-content-center content">
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/bottle.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Marble Bottle</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/bottle2.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Wooden Bottle</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-lg-6">
-              <img class="img-fluid" src="images/coffeeMug2.jpg" alt="" />
-            </div>
-            <div class="col-lg-6">
-              <h1 class="text-center">Coffee Mug</h1>
-              <p>blalabla</p>
-              <p>HARGA: $$$</p>
-              <p>quantity dropdown</p>
-              <button>Buy</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <script src="js/menu.js"></script>
   </body>
   <%- include('../template/footer.html'); %>
+
 </html>
