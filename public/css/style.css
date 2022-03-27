@@ -170,6 +170,21 @@ h2 {
   margin-bottom: 16px;
 }
 
+.product-card button {
+  background-color: #593e2c;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
 #product {
   margin-left: 16px;
   margin-right: 16px;

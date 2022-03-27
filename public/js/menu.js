@@ -1,5 +1,42 @@
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+function addToCart(productId) {
+    console.log(productId)
+    const product = products.find(product => {
+        if (product.id == productId) {
+            return true
+        }
+        for (index in product.children) {
+            if (product.children[index].id == productId) {
+                return true
+            }
+        }
+        return false
+    })
+
+    if (product.id != productId) {
+        // atc with variant
+        const child = product.children.find(child => child.id == productId)
+        sendAddToCartRequest(child)
+    } else {
+        sendAddToCartRequest(product)
+    }
+}
+
+function sendAddToCartRequest(product) {
+    // TODO: hit ajax
+    // waiting for auth header
+}
+
+let products
+
 function renderProduct(data) {
     let html = ''
+    console.log(data)
+    products = data
 
     for (index in data) {
         const product = data[index]
@@ -20,11 +57,19 @@ function renderProduct(data) {
                     </div>
                     <div class="col-lg-6 product-info">
                         <h1>${product.name}</h1>
-                        <p>${product.description}</p>
-                        <p>HARGA: ${product.price}</p>
-                        <p>quantity dropdown</p>
-                        <button>Buy</button>
-                    </div>
+                        <p><b>${formatter.format(product.price)}</b></p>
+                        <p>${product.description}</p>`
+        
+        if (product.children.length == 0) {
+            html += `<button onclick="addToCart(${product.id})">Buy</button>`
+        } else {
+            for (i in product.children) {
+                const child = product.children[i]
+                html += `<button onclick="addToCart(${child.id})">Buy - ${child.name}</button>`
+            }
+        }
+                        
+        html += `   </div>
                 </div>
             </div>
             `
