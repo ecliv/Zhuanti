@@ -145,3 +145,32 @@ h2 {
   text-align: center;
   color: white;
 }
+
+.product-card {
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-card .product-info {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.product-card img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-row {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#product {
+  margin-left: 16px;
+  margin-right: 16px;
+}

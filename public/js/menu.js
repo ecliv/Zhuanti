@@ -8,22 +8,22 @@ function renderProduct(data) {
                 html += `</div></section>`
             }
 
-            html += `<section class="container-fluid">
-                        <div class="row justify-content-center content">`
+            html += `<section class="container-fluid product-row">
+                        <div class="row justify-content-center">`
         }
 
         html += `
             <div class="col-lg-4">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                    <img class="img-fluid" src="${product.image_url}" alt="" />
+                <div class="row justify-content-center product-card">
+                    <div class="col-lg-6 p-0">
+                        <img class="img-fluid" src="${product.image_url}" alt="" />
                     </div>
-                    <div class="col-lg-6">
-                    <h1 class="text-center">${product.name}</h1>
-                    <p>${product.description}</p>
-                    <p>HARGA: ${product.price}</p>
-                    <p>quantity dropdown</p>
-                    <button>Buy</button>
+                    <div class="col-lg-6 product-info">
+                        <h1>${product.name}</h1>
+                        <p>${product.description}</p>
+                        <p>HARGA: ${product.price}</p>
+                        <p>quantity dropdown</p>
+                        <button>Buy</button>
                     </div>
                 </div>
             </div>
