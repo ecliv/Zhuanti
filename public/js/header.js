@@ -1,3 +1,4 @@
+//Banner's function
 $(window).ready(function () {
     $.ajax({
         url: "/api/banner",
@@ -33,7 +34,6 @@ var modal = document.getElementById("myModal");
 
 var loginAcc = document.getElementById("account");
 
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 loginAcc.onclick = function () {
@@ -48,4 +48,31 @@ window.onclick = function (e) {
     if (e.target == modal) {
         modal.style.display = "none";
     }
+}
+
+//login's function
+function do_login() {
+    var email = $("#exampleInputEmail").val();
+    var pass = $("#exampleInputPassword").val();
+    if (email != "" && pass != "") {
+        $("#loading_spinner").css({ "display": "block" });
+        $.ajax
+            ({
+                type: 'post',
+                url: 'api/user/login',
+                data: {
+                    email: email,
+                    password: pass
+                },
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+    }
+
+    else {
+        alert("Please Fill All The Details");
+    }
+
+    return false;
 }
