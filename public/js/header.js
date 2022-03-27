@@ -27,3 +27,25 @@ $(window).ready(function () {
         });
     });
 });
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+var loginAcc = document.getElementById("account");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+loginAcc.onclick = function () {
+    modal.style.display = "block";
+}
+
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+window.onclick = function (e) {
+    if (e.target == modal) {
+        modal.style.display = "none";
+    }
+}
