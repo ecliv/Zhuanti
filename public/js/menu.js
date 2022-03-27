@@ -1,5 +1,42 @@
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+function addToCart(productId) {
+    console.log(productId)
+    const product = products.find(product => {
+        if (product.id == productId) {
+            return true
+        }
+        for (index in product.children) {
+            if (product.children[index].id == productId) {
+                return true
+            }
+        }
+        return false
+    })
+
+    if (product.id != productId) {
+        // atc with variant
+        const child = product.children.find(child => child.id == productId)
+        sendAddToCartRequest(child)
+    } else {
+        sendAddToCartRequest(product)
+    }
+}
+
+function sendAddToCartRequest(product) {
+    // TODO: hit ajax
+    // waiting for auth header
+}
+
+let products
+
 function renderProduct(data) {
     let html = ''
+    console.log(data)
+    products = data
 
     for (index in data) {
         const product = data[index]
@@ -8,23 +45,31 @@ function renderProduct(data) {
                 html += `</div></section>`
             }
 
-            html += `<section class="container-fluid">
-                        <div class="row justify-content-center content">`
+            html += `<section class="container-fluid product-row">
+                        <div class="row justify-content-center">`
         }
 
         html += `
             <div class="col-lg-4">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                    <img class="img-fluid" src="${product.image_url}" alt="" />
+                <div class="row justify-content-center product-card">
+                    <div class="col-lg-6 p-0">
+                        <img class="img-fluid" src="${product.image_url}" alt="" />
                     </div>
-                    <div class="col-lg-6">
-                    <h1 class="text-center">${product.name}</h1>
-                    <p>${product.description}</p>
-                    <p>HARGA: ${product.price}</p>
-                    <p>quantity dropdown</p>
-                    <button>Buy</button>
-                    </div>
+                    <div class="col-lg-6 product-info">
+                        <h1>${product.name}</h1>
+                        <p><b>${formatter.format(product.price)}</b></p>
+                        <p>${product.description}</p>`
+        
+        if (product.children.length == 0) {
+            html += `<button onclick="addToCart(${product.id})">Buy</button>`
+        } else {
+            for (i in product.children) {
+                const child = product.children[i]
+                html += `<button onclick="addToCart(${child.id})">Buy - ${child.name}</button>`
+            }
+        }
+                        
+        html += `   </div>
                 </div>
             </div>
             `

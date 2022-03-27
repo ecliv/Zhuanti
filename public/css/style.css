@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Gabriola";
+  src: url("Gabriola.ttf");
+}
+
 body {
   font: 14px "Gabriola", serif, Helvetica, Arial, sans-serif;
   background: white;
@@ -210,4 +215,60 @@ h2 {
   padding: 2px 16px;
   background-color: #c7976f;
   color: white;
+}
+
+.footer-container {
+  display: flex;
+  margin-top: 30px;
+  padding-top: 2em;
+  background-color: #593e2c;
+}
+
+.footer-heading {
+  text-align: center;
+  color: white;
+}
+
+.product-card {
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-card .product-info {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.product-card img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-row {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.product-card button {
+  background-color: #593e2c;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+#product {
+  margin-left: 16px;
+  margin-right: 16px;
 }
