@@ -20,9 +20,6 @@ router.get('/menu', function (req, res, next) {
   res.render('menu/menu.html', { baseUrl })
 });
 
-router.get('/admin', function (req, res, next) {
-  res.render('admin/index.html')
-});
 
 router.get('/login', function (req, res, next) {
   res.render('login/login.html')
@@ -31,6 +28,11 @@ router.get('/login', function (req, res, next) {
 router.get('/help', function (req, res, next) {
   const baseUrl = process.env.BASE_URL
   res.render('help/help.html', { baseUrl })
+});
+
+router.get('/account', function (req, res, next) {
+  const baseUrl = process.env.BASE_URL
+  res.render('account/account.html', { baseUrl })
 });
 // GET VS POST -> HTTP Method
 // PATCH, DELETE

@@ -34,9 +34,15 @@ var modal = document.getElementById("myModal");
 
 var loginAcc = document.getElementById("account");
 
+var logout = document.getElementById("logout");
+
 var span = document.getElementsByClassName("close")[0];
+let globalUser = null;
 
 loginAcc.onclick = function () {
+    if (!!globalUser) {
+        return;
+    }
     modal.style.display = "block";
 }
 
@@ -50,8 +56,13 @@ window.onclick = function (e) {
     }
 }
 
+logout.onclick = function (e) {
+    localStorage.removeItem("user");
+    location.reload();
+}
+
 //login's function
-function do_login() {
+function doLogin() {
     var email = $("#exampleInputEmail").val();
     var pass = $("#exampleInputPassword").val();
     if (email != "" && pass != "") {
@@ -66,13 +77,18 @@ function do_login() {
                 },
                 success: function (response) {
                     console.log(response)
+                    if (response.is_success) {
+                        console.log(response);
+                        globalUser = response.user;
+                        localStorage.setItem('user', JSON.stringify(response.user));
+                        modal.style.display = "none";
+                        logout.style.display = "block";
+                    } else {
+                        alert(response.error_message)
+                    }
+
                 }
             });
     }
-
-    else {
-        alert("Please Fill All The Details");
-    }
-
     return false;
 }
