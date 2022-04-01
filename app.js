@@ -57,9 +57,9 @@ if (process.env.USE_SSL == "true") {
     cert: fs.readFileSync('cert.pem')
   };
   var httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(process.env.PORT);
-} else {
-  app.listen(process.env.PORT)
-
-  module.exports = app;
+  httpsServer.listen(443);
 }
+  
+app.listen(process.env.PORT)
+
+module.exports = app;
