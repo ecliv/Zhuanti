@@ -1,9 +1,9 @@
 const connection = require('./connection')
 
 class OrderRepository {
-    createOrder(userId, addressId, total, note, callback) {
-        const query = `insert into orders values(NULL, ?, ?, ?, CURRENT_TIMESTAMP, 'waiting payment', ?)`
-        connection.query(query, [userId, addressId, total, note], (err, result, fields) => {
+    createOrder(userId, addressId, total, note, isPickUp, callback) {
+        const query = `insert into orders values(NULL, ?, ?, ?, CURRENT_TIMESTAMP, 'waiting payment', ?, ?)`
+        connection.query(query, [userId, addressId, total, note, isPickUp], (err, result, fields) => {
             callback(result.insertId)
         })
     }
@@ -19,7 +19,7 @@ class OrderRepository {
         join addresses a on o.address_id = a.id 
         join order_items i on o.id = i.order_id
         join products p on i.product_id = p.id
-        join products parent on p.parent_id = parent.id
+        left join products parent on p.parent_id = parent.id
         where o.user_id = ?
         order by o.created desc`
         connection.query(query, [userId], (err, rows, fields) => {

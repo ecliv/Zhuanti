@@ -52,12 +52,14 @@ class CheckoutController {
 
     createOrder(cartItems, cartTotal, req, res) {
         const userId = res.locals.user.id
+        const isPickUp = req.body.is_pick_up || false
 
         orderRepository.createOrder(
             userId,
             req.body.address_id, 
             cartTotal, 
             req.body.note,
+            isPickUp,
             (orderId) => {
                 cartRepository.clearUserCart(userId)
                 cartItems.forEach(item => {

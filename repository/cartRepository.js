@@ -14,7 +14,7 @@ class CartRepository {
     getUserCart(userId, valueCallback) {
         const query = `select p.id, p.name, parent.name as parent_name, p.image_url, p.price, p.description, c.qty, p.price * c.qty as 'total' from cart_items c 
         join products p on c.product_id = p.id
-        join products parent on p.parent_id = parent.id
+        left join products parent on p.parent_id = parent.id
         where c.user_id = ?`
 
         connection.query(query, [userId], (err, rows, fields) => {

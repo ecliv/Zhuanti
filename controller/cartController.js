@@ -3,6 +3,7 @@ const productRepository = require('../repository/productRepository')
 
 class CartController {
     getUserCart(req, res, next) {
+        console.log(res.locals.user.id)
         repository.getUserCart(res.locals.user.id, (cartItems) => {
             let cartTotal = 0
             cartItems.forEach(item => {
