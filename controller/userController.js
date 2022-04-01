@@ -41,7 +41,7 @@ class ProductController {
             res.send({
                 is_success: true,
                 user: {
-                    firstName: user.fisrt_name,
+                    firstName: user.first_name,
                     lastName: user.last_name,
                     isStaff: user.is_staff == 1,
                     email: user.email,
