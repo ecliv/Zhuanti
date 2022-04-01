@@ -97,7 +97,7 @@ $('#selectionAll').on('click', function () {
 
 $('#selectionDrink').on('click', function () {
     $.ajax({
-        url: "api/product?category_id=4",
+        url: "api/product?category_id=1",
     }).done(function (data) {
         renderProduct(data)
     })
@@ -105,7 +105,7 @@ $('#selectionDrink').on('click', function () {
 
 $('#selectionBean').on('click', function () {
     $.ajax({
-        url: "api/product?category_id=5",
+        url: "api/product?category_id=2",
     }).done(function (data) {
         renderProduct(data)
     })
