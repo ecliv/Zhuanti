@@ -51,7 +51,7 @@ app.use(function(err, req, res, next) {
 });
 
 console.log(`listening on port ${process.env.PORT}`)
-if (process.env.USE_SSL) {
+if (process.env.USE_SSL == "true") {
   const credentials = {
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('cert.pem')
