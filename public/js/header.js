@@ -1,3 +1,4 @@
+//Banner's function
 $(window).ready(function () {
     $.ajax({
         url: "/api/banner",
@@ -27,3 +28,67 @@ $(window).ready(function () {
         });
     });
 });
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+var loginAcc = document.getElementById("account");
+
+var logout = document.getElementById("logout");
+
+var span = document.getElementsByClassName("close")[0];
+let globalUser = null;
+
+loginAcc.onclick = function () {
+    if (!!globalUser) {
+        return;
+    }
+    modal.style.display = "block";
+}
+
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+window.onclick = function (e) {
+    if (e.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+logout.onclick = function (e) {
+    localStorage.removeItem("user");
+    location.reload();
+}
+
+//login's function
+function doLogin() {
+    var email = $("#exampleInputEmail").val();
+    var pass = $("#exampleInputPassword").val();
+    if (email != "" && pass != "") {
+        $("#loading_spinner").css({ "display": "block" });
+        $.ajax
+            ({
+                type: 'post',
+                url: 'api/user/login',
+                data: {
+                    email: email,
+                    password: pass
+                },
+                success: function (response) {
+                    console.log(response)
+                    if (response.is_success) {
+                        console.log(response);
+                        globalUser = response.user;
+                        localStorage.setItem('user', JSON.stringify(response.user));
+                        modal.style.display = "none";
+                        logout.style.display = "block";
+                    } else {
+                        alert(response.error_message)
+                    }
+
+                }
+            });
+    }
+    return false;
+}

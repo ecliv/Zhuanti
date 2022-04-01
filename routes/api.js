@@ -5,6 +5,7 @@ const bannerController = require('../controller/bannerController')
 const categoryController = require('../controller/categoryController')
 const productController = require('../controller/productController')
 const userController = require('../controller/userController')
+const botController = require('../controller/botController')
 
 router.get('/banner', bannerController.getBanners);
 router.post('/banner', bannerController.createBanner);
@@ -27,6 +28,8 @@ router.post('/product/:productId/variant', productController.addVariant);
 
 router.post('/user/register', userController.registerUser);
 router.post('/user/login', userController.login);
+
+router.post('/bot/webhook', botController.handleWebhook);
 
 router.get('/autocomplete', (request, response, next) => {
     response.sendStatus(204)

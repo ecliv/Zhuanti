@@ -10,8 +10,10 @@ class ProductRepository {
             where products.parent_id is null`, (err, rows, fields) => {
             if (err != null) {
                 valueCallback([])
+                console.log(err)
             } else {
                 const result = this.processProductData(rows)
+                console.log(result)
                 valueCallback(result)
             }
         })
@@ -52,7 +54,7 @@ class ProductRepository {
                 if (!!lastRow) {
                     result.push(lastRow)
                 }
-                
+
                 let product = {
                     id: row.id,
                     category_id: row.category_id,
@@ -131,7 +133,7 @@ class ProductRepository {
                 console.log(err)
                 valueCallback(0)
             } else {
-                if(rows.length == 0) {
+                if (rows.length == 0) {
                     valueCallback(0)
                 } else {
                     valueCallback(rows[0] && rows[0].stock || 0)
