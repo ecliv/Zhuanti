@@ -9,15 +9,31 @@ class BotController {
                 jsonResponse = {
                     "fulfillmentMessages": [
                         {
-                            "card": {
-                                "title": "Beans",
-                                "subtitle": "asdf asdf adf",
-                                "imageUri": "https://example.com/images/example.png",
-                                "buttons": [
-                                    {
-                                        "text": "See Full List",
-                                        "postback": "https://example.com/path/for/end-user/to/follow"
-                                    }
+                            "text": {
+                                "text": [
+                                    "Text response from webhook"
+                                ]
+                            }
+                        },
+                        {
+                            "payload": {
+                                "richContent": [
+                                    [
+                                        {
+                                            "options": [
+                                                {
+                                                    "text": "Drinks"
+                                                },
+                                                {
+                                                    "text": "Beans"
+                                                },
+                                                {
+                                                    "text": "Merch"
+                                                }
+                                            ],
+                                            "type": "chips"
+                                        }
+                                    ]
                                 ]
                             }
                         }
@@ -26,7 +42,7 @@ class BotController {
                 break;
         }
 
-        
+
         res.send(jsonResponse)
     }
 }
