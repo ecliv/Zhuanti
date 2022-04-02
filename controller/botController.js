@@ -104,6 +104,7 @@ class BotController {
             case "select.product.email":
                 const email = parameters && parameters.email || ""
                 userRepository.getUserFromEmail(email, (user) => {
+                    console.log("user found", user.id)
                     if (!!user) {
                         sessionData[sessionId].user = user
                         this.processCart(sessionId, res)
@@ -127,6 +128,7 @@ class BotController {
     }
 
     registerNewBotUser = (email, sessionId, res) => {
+        console.log("registering new user")
         userRepository.registerUser({
             email: email,
             first_name: "",
@@ -140,6 +142,7 @@ class BotController {
     }
 
     processCart = (sessionId, res) => {
+        console.log("processing cart")
         const userId = sessionData[sessionId].user.id
         const productId = sessionData[sessionId].productId
         cartRepository.clearUserCart(userId)
@@ -147,9 +150,11 @@ class BotController {
         cartController.processATC(productId, userId, (error) => {
             if (!!error) {
                 const response = this.constructGenericMessage(error, true)
+                console.log(response)
                 res.send(response)
             } else {
                 const response = this.constructGenericMessage("Would you like it to be delivered or pick-up?", false)
+                console.log(response)
                 res.send(response)
             }
         })
