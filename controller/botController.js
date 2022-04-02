@@ -9,12 +9,10 @@ class BotController {
         switch (tag) {
             case "menu.list":
                 categoryRepository.getCategories((data) => {
-                    let options = []
-                    for (const index in data) {
-                        options.push({
-                            "text": data[index].name
-                        })
-                    }
+                    console.log(data)
+                    const options = data.map(category => {
+                        return { "text": category.name }
+                    });
 
                     jsonResponse = {
                         "fulfillmentMessages": [
@@ -39,6 +37,7 @@ class BotController {
                             }
                         ]
                     }
+                    res.send(jsonResponse)
                 })
                 
                 break;
