@@ -96,7 +96,7 @@ class BotController {
                 console.log(req.body.queryResult.outputContexts)
                 console.log(req.body)
                 const response = this.askForEmail(productId)
-                res.send("")
+                res.send(response)
                 break;
             case "select.product.email":
                 console.log(req.body.queryResult.outputContexts)
@@ -146,14 +146,7 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ],
-            "followupEventInput": {
-                "name": "ask_for_email_event",
-                "parameters": {
-                    "id": productId
-                },
-                "languageCode": "en-US"
-            }
+            ]
         }
     }
 
