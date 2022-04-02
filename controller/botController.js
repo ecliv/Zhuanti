@@ -1,6 +1,10 @@
-const { response } = require('express');
 const categoryRepository = require('../repository/categoryRepository')
 const productRepository = require('../repository/productRepository')
+const userRepository = require('../repository/userRepository')
+const cartRepository = require('../repository/cartRepository')
+
+const CartController = require('./cartController')
+const cartController = require('./cartController')
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -97,16 +101,16 @@ class BotController {
                     }
                 })
                 break;
-            case "select.product.ask.email":
-                console.log(req.body)
-                console.log(sessionData[sessionId])
-                const response = this.askForEmail(productId)
-                res.send(response)
-                break;
             case "select.product.email":
-                console.log(req.body)
-                console.log(sessionData[sessionId])
-                res.send("")
+                const email = parameters && parameters.email || ""
+                userRepository.getUserFromEmail(email, (user) => {
+                    if (!!user) {
+                        sessionData[sessionId].user = user
+                        this.processCart(sessionId, res)
+                    } else {
+                        this.registerNewBotUser(email, sessionId)
+                    }
+                })
                 break;
             default:
                 console.log(req.body)
@@ -122,15 +126,49 @@ class BotController {
         // - ATC + checkout
     }
 
-    askForEmail = (productId) => {
+    registerNewBotUser = (email, sessionId, res) => {
+        userRepository.registerUser({
+            email: email,
+            first_name: "",
+            last_name: ""
+        }, "not_set", () => {
+            userRepository.getUserFromEmail(email, (user) => {
+                sessionData[sessionId].user = user
+                this.processCart(sessionId, res)
+            })
+        })
+    }
+
+    processCart = (sessionId, res) => {
+        const userId = sessionData[sessionId].user.id
+        const productId = sessionData[sessionId].productId
+        cartRepository.clearUserCart(userId)
+        
+        cartController.processATC(productId, userId, (error) => {
+            if (!!error) {
+                const response = this.constructGenericMessage(error, true)
+                res.send(response)
+            } else {
+                const response = this.constructGenericMessage("Would you like it to be delivered or pick-up?", false)
+                res.send(response)
+            }
+        })
+    }
+
+    constructDeliveryMethod = () => {
+
+    }
+
+    constructGenericMessage = (message, endSession) => {
         return {
             "fulfillmentMessages": [
                 {
                     "text": {
-                        "text": [`Please provide your email address for order confirmation and pick up information.`]
+                        "text": [message]
                     }
                 }
-            ]
+            ],
+            "endInteraction": endSession
         }
     }
 

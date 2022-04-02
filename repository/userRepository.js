@@ -1,10 +1,11 @@
 var connection = require('./connection')
 
 class UserRepository {
-    registerUser(data, password) {
+    registerUser(data, password, callback) {
         const query = `INSERT INTO users VALUES(NULL, ?, ?, ?, false, ?)`
         connection.query(query, [data.email, data.first_name, data.last_name, "" + password], (err, rows, fields) => {
             console.log(err)
+            callback()
         })
     }
 

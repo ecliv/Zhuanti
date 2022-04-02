@@ -21,21 +21,31 @@ class CartController {
 
     addToCart(req, res, next) {
         const product_id = req.body.product_id
+        const userId = res.locals.user.id
         
+        this.processATC(product_id, userId, (error) => {
+            if (!!error) {
+                res.status(400).send({
+                    "error": error
+                })
+            } else {
+                res.sendStatus(200)
+            }
+        })
+    }
+
+    processATC = (product_id, userId, resolver) => {
         productRepository.getStockForProduct(product_id, (stock) => {
-            repository.getProductCountInCart(res.locals.user.id, product_id, (qty) => {
+            repository.getProductCountInCart(userId, product_id, (qty) => {
                 if (qty == 0 && stock >= 1) {
-                    repository.addToCart(res.locals.user.id, product_id)
-                    res.sendStatus(200)
+                    repository.addToCart(userId, product_id)
+                    resolver(null)
                 } else if (stock >= qty + 1) {
-                    repository.incrementProductInCart(res.locals.user.id, product_id)
+                    repository.incrementProductInCart(userId, product_id)
                     console.log("up here")
-                    res.sendStatus(200)
+                    resolver(null)
                 } else {
-                    console.log("down here")
-                    res.status(400).send({
-                        "error": "Insufficient stock. Stock remaining is " + stock
-                    })
+                    resolver("Insufficient stock. Stock remaining is " + stock)
                 }
             })
         })
