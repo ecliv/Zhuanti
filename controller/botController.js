@@ -77,24 +77,45 @@ class BotController {
                 const productId = parameters && parameters.id || 0
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
-                        res.send("")
-                        console.log("ATC flow!!!")
+                        const response = this.constructAskForEmailResponse(product[0].id)
+                        res.send(response)
                     } else if (product[0].children && product[0].children.length > 0) {
                         const response = this.constructVariantResponse(product[0].name, product[0].children)
                         res.send(response)
                     } else {
-                        res.send("")
-                        console.log("ATC!!!")
+                        const response = this.constructAskForEmailResponse(product[0].id)
+                        res.send(response)
                     }
                 })
                 break;
         }
 
-        // ATC
+        // ATC FLOW
         // - email?
+            // - new user - create
+        // - ATC (check for stock)
         // - pick up?
-            // - deliver to?
-        // - ATC
+            // - NO: deliver to?
+        // - ATC + checkout
+    }
+
+    constructAskForEmailResponse = (productId) => {
+        return {
+            "fulfillmentMessages": [
+                {
+                    "text": {
+                        "text": [`Please provide your email address for order confirmation and pick up information.`]
+                    }
+                }
+            ],
+            "followupEventInput": {
+                "name": "input_email_event",
+                "parameters": {
+                    "id": productId
+                },
+                "languageCode": "en-US"
+            }
+        }
     }
 
     constructVariantResponse = (productName, variants) => {
