@@ -92,10 +92,14 @@ class BotController {
                     }
                 })
                 break;
-            case "select.product.email":
+            case "select.product.ask.email":
                 console.log(req.body)
                 const response = this.askForEmail(productId)
                 res.send(response)
+                break;
+            case "select.product.email":
+                console.log(req.body)
+                res.send("")
                 break;
             default:
                 console.log(req.body)
@@ -119,7 +123,14 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ]
+            ],
+            "followupEventInput": {
+                "name": "input_email_event",
+                "parameters": {
+                    "id": productId
+                },
+                "languageCode": "en-US"
+            }
         }
     }
 
@@ -133,7 +144,7 @@ class BotController {
                 }
             ],
             "followupEventInput": {
-                "name": "input_email_event",
+                "name": "ask_for_email_event",
                 "parameters": {
                     "id": productId
                 },
