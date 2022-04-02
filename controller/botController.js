@@ -13,8 +13,7 @@ class BotController {
         console.log(tag)
         let jsonResponse = {}
         const parameters = req.body.queryResult.parameters
-        const productId = 0
-
+        let productId = 0
 
         switch (tag) {
             case "menu.list":
