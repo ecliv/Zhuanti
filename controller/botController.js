@@ -109,7 +109,7 @@ class BotController {
                         sessionData[sessionId].user = user
                         this.processCart(sessionId, res)
                     } else {
-                        this.registerNewBotUser(email, sessionId)
+                        this.registerNewBotUser(email, sessionId, res)
                     }
                 })
                 break;
