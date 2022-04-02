@@ -57,14 +57,24 @@ class BotController {
     }
 
     constructMenuResponse = (products) => {
-        const cards = products.map(product => {
-            return {
-                "card": {
-                    "title": `${product.name} - ${formatter.format(product.price)}`,
-                    "subtitle": product.description,
-                    "imageUri": product.image_url,
+        let menu = []
+        products.forEach(product => {
+            const item = {
+                "type": "list",
+                "title": `${product.name} - ${formatter.format(product.price)}`,
+                "subtitle": product.description,
+                "event": {
+                    "name": "select.drink",
+                    "parameters": {
+                        "id": product.id,
+                        "name": product.name
+                    }
                 }
             }
+            menu.push(item)
+            menu.push({
+                "type": "divider"
+            })
         })
 
         return {
@@ -76,7 +86,13 @@ class BotController {
                         ]
                     }
                 },
-                ...cards
+                {
+                    "payload": {
+                        "richContent": [
+                            menu
+                        ]
+                    }
+                }
             ]
         }
     }

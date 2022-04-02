@@ -291,6 +291,12 @@ h2 {
   border: none;
 }
 
+df-messenger {
+  --df-messenger-button-titlebar-color: #593e2c;
+  --df-messenger-chat-background-color: #fafafa;
+  --df-messenger-send-icon: #593e2c;
+ }
+
 #loginButton:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   border: none;
