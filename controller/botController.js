@@ -98,6 +98,7 @@ class BotController {
                 res.send(response)
                 break;
             case "select.product.email":
+                console.log(req.body.queryResult.outputContexts)
                 console.log(req.body)
                 res.send("")
                 break;
@@ -121,6 +122,15 @@ class BotController {
                 {
                     "text": {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
+                    }
+                }
+            ],
+            "outputContexts": [
+                {
+                    "name": "select.product.id",
+                    "lifespanCount": 10,
+                    "parameters": {
+                        id: productId
                     }
                 }
             ]
