@@ -10,12 +10,12 @@ class BotController {
                     "fulfillmentMessages": [
                         {
                             "card": {
-                                "title": "card title",
-                                "subtitle": "card text",
+                                "title": "Beans",
+                                "subtitle": "asdf asdf adf",
                                 "imageUri": "https://example.com/images/example.png",
                                 "buttons": [
                                     {
-                                        "text": "button text",
+                                        "text": "See Full List",
                                         "postback": "https://example.com/path/for/end-user/to/follow"
                                     }
                                 ]
