@@ -8,9 +8,9 @@ class BotController {
 
         switch (tag) {
             case "menu.list":
-                repository.getCategories((data) => {
+                categoryRepository.getCategories((data) => {
                     let options = []
-                    for (index in data) {
+                    for (const index in data) {
                         options.push({
                             "text": data[index].name
                         })
@@ -39,7 +39,6 @@ class BotController {
                             }
                         ]
                     }
-                    res.send(jsonResponse)
                 })
                 
                 break;
