@@ -12,6 +12,9 @@ class BotController {
         const tag = req.body.queryResult.intent.displayName
         console.log(tag)
         let jsonResponse = {}
+        const parameters = req.body.queryResult.parameters
+        const productId = 0
+
 
         switch (tag) {
             case "menu.list":
@@ -73,8 +76,7 @@ class BotController {
                 })
                 break;
             case "select.product":
-                const parameters = req.body.queryResult.parameters
-                const productId = parameters && parameters.id || 0
+                productId = parameters && parameters.id || 0
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
                         const response = this.constructAskForEmailResponse(product[0].id)
@@ -88,6 +90,14 @@ class BotController {
                     }
                 })
                 break;
+            case "select.product.email":
+                console.log(req.body)
+                const response = this.askForEmail(productId)
+                res.send(response)
+                break;
+            default:
+                console.log(req.body)
+                break;
         }
 
         // ATC FLOW
@@ -99,7 +109,7 @@ class BotController {
         // - ATC + checkout
     }
 
-    constructAskForEmailResponse = (productId) => {
+    askForEmail = (productId) => {
         return {
             "fulfillmentMessages": [
                 {
@@ -107,7 +117,12 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ],
+            ]
+        }
+    }
+
+    constructAskForEmailResponse = (productId) => {
+        return {
             "followupEventInput": {
                 "name": "input_email_event",
                 "parameters": {
