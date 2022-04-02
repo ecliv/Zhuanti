@@ -125,15 +125,6 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ],
-            "outputContexts": [
-                {
-                    "name": "select.product.id",
-                    "lifespanCount": 10,
-                    "parameters": {
-                        id: productId
-                    }
-                }
             ]
         }
     }
@@ -146,7 +137,14 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ]
+            ],
+            "followupEventInput": {
+                "name": "ask_for_email_event",
+                "parameters": {
+                    "id": productId
+                },
+                "languageCode": "en-US"
+            }
         }
     }
 
