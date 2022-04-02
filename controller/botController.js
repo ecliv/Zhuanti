@@ -153,7 +153,8 @@ class BotController {
                 console.log(response)
                 res.send(response)
             } else {
-                const response = this.constructGenericMessage("Would you like it to be delivered or pick-up?", false)
+                const name = sessionData[sessionId].user.first_name || "Dear Customer."
+                const response = this.constructGenericMessage(`Thanks ${name}! Would you like it to be delivered or pick-up?`, false)
                 console.log(response)
                 res.send(response)
             }
