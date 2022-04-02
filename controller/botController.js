@@ -77,18 +77,24 @@ class BotController {
                 const productId = parameters && parameters.id || 0
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
-                        console.log("ATC!!!")
+                        res.send("")
+                        console.log("ATC flow!!!")
                     } else if (product[0].children && product[0].children.length > 0) {
                         const response = this.constructVariantResponse(product[0].name, product[0].children)
                         res.send(response)
                     } else {
+                        res.send("")
                         console.log("ATC!!!")
                     }
-
-                    res.send("")
                 })
                 break;
         }
+
+        // ATC
+        // - email?
+        // - pick up?
+            // - deliver to?
+        // - ATC
     }
 
     constructVariantResponse = (productName, variants) => {
