@@ -49,14 +49,26 @@ class BotController {
                 break;
             case "drinksmenu.list":
                 productRepository.getProductsWithCategory(1, (data) => {
-                    const response = this.constructMenuResponse(data)
+                    const response = this.constructMenuResponse("Here is the menu for Drinks:", data)
+                    res.send(response)
+                })
+                break;
+            case "beansmenu.list":
+                productRepository.getProductsWithCategory(2, (data) => {
+                    const response = this.constructMenuResponse("Here is the menu for our Coffee Beans:", data)
+                    res.send(response)
+                })
+                break;
+            case "merchmenu.list":
+                productRepository.getProductsWithCategory(3, (data) => {
+                    const response = this.constructMenuResponse("Here is the menu for our Merchandise:", data)
                     res.send(response)
                 })
                 break;
         }
     }
 
-    constructMenuResponse = (products) => {
+    constructMenuResponse = (title, products) => {
         let menu = []
         products.forEach(product => {
             const item = {
@@ -76,14 +88,13 @@ class BotController {
                 "type": "divider"
             })
         })
+        menu.pop()
 
         return {
             "fulfillmentMessages": [
                 {
                     "text": {
-                        "text": [
-                            "Here is the menu for Drinks:"
-                        ]
+                        "text": [title]
                     }
                 },
                 {
