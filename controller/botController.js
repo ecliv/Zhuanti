@@ -104,8 +104,8 @@ class BotController {
             case "select.product.email":
                 const email = parameters && parameters.email || ""
                 userRepository.getUserFromEmail(email, (user) => {
-                    console.log("user found", user.id)
                     if (!!user) {
+                        console.log("user found", user.id)
                         sessionData[sessionId].user = user
                         this.processCart(sessionId, res)
                     } else {
