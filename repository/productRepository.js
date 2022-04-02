@@ -35,6 +35,24 @@ class ProductRepository {
         })
     }
 
+    getProductDetail(productId, valueCallback) {
+        connection.query(`select products.id, products.category_id, products.name, products.image_url, products.price, products.description, products.weight, products.stock, categories.name as category_name,
+        v.id as child_id, v.name as child_name, v.price as child_price, v.image_url as child_image_url, v.description as child_description, v.weight as child_weight, v.stock as child_stock
+            from products 
+            JOIN categories on products.category_id = categories.id
+            LEFT JOIN products v on v.parent_id = products.id
+            where products.parent_id is null AND products.id = ?`, [productId], (err, rows, fields) => {
+            if (err != null) {
+                valueCallback([])
+                console.log(err)
+            } else {
+                const result = this.processProductData(rows)
+                console.log(result)
+                valueCallback(result)
+            }
+        })
+    }
+
     processProductData(rows) {
         let result = []
         let lastRow = null

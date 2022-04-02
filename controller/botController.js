@@ -73,9 +73,62 @@ class BotController {
                 })
                 break;
             case "select.product":
-                console.log(res.body)
-                res.send("")
+                const parameters = req.body.queryResult.parameters
+                const productId = parameters && parameters.id || 0
+                productRepository.getProductDetail(productId, (product) => {
+                    if (product.length == 0) {
+                        console.log("ATC!!!")
+                    } else if (product[0].children && product[0].children.length > 0) {
+                        const response = this.constructVariantResponse(product[0].name, product[0].children)
+                        res.send(response)
+                    } else {
+                        console.log("ATC!!!")
+                    }
+
+                    res.send("")
+                })
                 break;
+        }
+    }
+
+    constructVariantResponse = (productName, variants) => {
+        let menu = []
+        variants.forEach(variant => {
+            const item = {
+                "type": "list",
+                "title": `${variant.name} - ${formatter.format(variant.price)}`,
+                "subtitle": variant.description,
+                "event": {
+                    "name": "select_product_event",
+                    "languageCode": "en-US",
+                    "parameters": {
+                        "id": variant.id,
+                        "name": `${productName} - ${variant.name}`
+                    }
+                }
+            }
+            menu.push(item)
+            menu.push({
+                "type": "divider"
+            })
+        })
+        menu.pop()
+
+        return {
+            "fulfillmentMessages": [
+                {
+                    "text": {
+                        "text": [`We have several option for ${productName}. Please choose one`]
+                    }
+                },
+                {
+                    "payload": {
+                        "richContent": [
+                            menu
+                        ]
+                    }
+                }
+            ]
         }
     }
 
@@ -88,6 +141,7 @@ class BotController {
                 "subtitle": product.description,
                 "event": {
                     "name": "select_product_event",
+                    "languageCode": "en-US",
                     "parameters": {
                         "id": product.id,
                         "name": product.name
