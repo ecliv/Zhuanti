@@ -7,12 +7,15 @@ const formatter = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 });
 
+let sessionData = {}
+
 class BotController {
     handleWebhook = (req, res, next) => {
         const tag = req.body.queryResult.intent.displayName
         console.log(tag)
         let jsonResponse = {}
         const parameters = req.body.queryResult.parameters
+        const sessionId = req.body.session
         let productId = 0
 
         switch (tag) {
@@ -78,6 +81,7 @@ class BotController {
                 productId = parameters && parameters.id || 0
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
+                        sessionData[sessionId] = { productId: product[0].id }
                         const response = this.constructAskForEmailResponse(product[0].id)
                         console.log(response)
                         res.send(response)
@@ -86,6 +90,7 @@ class BotController {
                         console.log(response)
                         res.send(response)
                     } else {
+                        sessionData[sessionId] = { productId: product[0].id }
                         const response = this.constructAskForEmailResponse(product[0].id)
                         console.log(response)
                         res.send(response)
@@ -93,14 +98,14 @@ class BotController {
                 })
                 break;
             case "select.product.ask.email":
-                console.log(req.body.queryResult.outputContexts)
                 console.log(req.body)
+                console.log(sessionData[sessionId])
                 const response = this.askForEmail(productId)
                 res.send(response)
                 break;
             case "select.product.email":
-                console.log(req.body.queryResult.outputContexts)
                 console.log(req.body)
+                console.log(sessionData[sessionId])
                 res.send("")
                 break;
             default:
@@ -137,14 +142,7 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ],
-            "followupEventInput": {
-                "name": "ask_for_email_event",
-                "parameters": {
-                    "id": productId
-                },
-                "languageCode": "en-US"
-            }
+            ]
         }
     }
 
