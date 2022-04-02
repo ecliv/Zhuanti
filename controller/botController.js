@@ -123,14 +123,7 @@ class BotController {
                         "text": [`Please provide your email address for order confirmation and pick up information.`]
                     }
                 }
-            ],
-            "followupEventInput": {
-                "name": "input_email_event",
-                "parameters": {
-                    "id": productId
-                },
-                "languageCode": "en-US"
-            }
+            ]
         }
     }
 
