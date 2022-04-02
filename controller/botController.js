@@ -80,12 +80,15 @@ class BotController {
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
                         const response = this.constructAskForEmailResponse(product[0].id)
+                        console.log(response)
                         res.send(response)
                     } else if (product[0].children && product[0].children.length > 0) {
                         const response = this.constructVariantResponse(product[0].name, product[0].children)
+                        console.log(response)
                         res.send(response)
                     } else {
                         const response = this.constructAskForEmailResponse(product[0].id)
+                        console.log(response)
                         res.send(response)
                     }
                 })
@@ -123,6 +126,13 @@ class BotController {
 
     constructAskForEmailResponse = (productId) => {
         return {
+            "fulfillmentMessages": [
+                {
+                    "text": {
+                        "text": [`Please provide your email address for order confirmation and pick up information.`]
+                    }
+                }
+            ],
             "followupEventInput": {
                 "name": "input_email_event",
                 "parameters": {
