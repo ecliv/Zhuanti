@@ -65,6 +65,12 @@ class BotController {
                     res.send(response)
                 })
                 break;
+            case "allproducts":
+                productRepository.getProducts((data) => {
+                    const response = this.constructMenuResponse("Here is the full list of our products:", data)
+                    res.send(response)
+                })
+                break;
         }
     }
 
