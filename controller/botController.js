@@ -1,3 +1,5 @@
+const categoryRepository = require('../repository/categoryRepository')
+
 class BotController {
     handleWebhook(req, res, next) {
         const tag = req.body.queryResult.intent.displayName
@@ -6,44 +8,42 @@ class BotController {
 
         switch (tag) {
             case "menu.list":
-                jsonResponse = {
-                    "fulfillmentMessages": [
-                        {
-                            "text": {
-                                "text": [
-                                    "Text response from webhook"
-                                ]
-                            }
-                        },
-                        {
-                            "payload": {
-                                "richContent": [
-                                    [
-                                        {
-                                            "options": [
-                                                {
-                                                    "text": "Drinks"
-                                                },
-                                                {
-                                                    "text": "Beans"
-                                                },
-                                                {
-                                                    "text": "Merch"
-                                                }
-                                            ],
-                                            "type": "chips"
-                                        }
+                repository.getCategories((data) => {
+                    let options = []
+                    for (index in data) {
+                        options.push({
+                            "text": data[index].name
+                        })
+                    }
+
+                    jsonResponse = {
+                        "fulfillmentMessages": [
+                            {
+                                "text": {
+                                    "text": [
+                                        "Please pick one from our categories:"
                                     ]
-                                ]
+                                }
+                            },
+                            {
+                                "payload": {
+                                    "richContent": [
+                                        [
+                                            {
+                                                "options": options,
+                                                "type": "chips"
+                                            }
+                                        ]
+                                    ]
+                                }
                             }
-                        }
-                    ]
-                }
+                        ]
+                    }
+                    res.send(jsonResponse)
+                })
+                
                 break;
         }
-
-
-        res.send(jsonResponse)
     }
 }
 
