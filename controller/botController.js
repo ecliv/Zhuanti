@@ -1,3 +1,4 @@
+const { response } = require('express');
 const categoryRepository = require('../repository/categoryRepository')
 const productRepository = require('../repository/productRepository')
 
@@ -71,6 +72,10 @@ class BotController {
                     res.send(response)
                 })
                 break;
+            case "select.product":
+                console.log(res.body)
+                res.send("")
+                break;
         }
     }
 
@@ -82,7 +87,7 @@ class BotController {
                 "title": `${product.name} - ${formatter.format(product.price)}`,
                 "subtitle": product.description,
                 "event": {
-                    "name": "select.drink",
+                    "name": "select_product_event",
                     "parameters": {
                         "id": product.id,
                         "name": product.name
