@@ -1,3 +1,4 @@
+const { resolve } = require('path')
 const cartRepository = require('../repository/cartRepository')
 const orderRepository = require('../repository/orderRepository')
 const productRepository = require('../repository/productRepository')
@@ -5,9 +6,14 @@ const productRepository = require('../repository/productRepository')
 class CheckoutController {
     checkout = (req, res, next) => {
         // get user carts
+        const note = req.body.note
+        const addressId = req.body.address_id
+        const isPickUp = req.body.is_pick_up || false
+        const userId = res.locals.user.id
+
         const getUserCartPromise = userId => new Promise(resolve => cartRepository.getUserCart(userId, resolve))
 
-        getUserCartPromise(res.locals.user.id)
+        getUserCartPromise(userId)
             .then(cartItems => {
                 let cartTotal = 0
                 let productIds = []
@@ -16,16 +22,23 @@ class CheckoutController {
                     productIds.push(item.id)
                 })
 
-                this.validateStocks(cartItems, cartTotal, productIds, req, res)
+                this.validateStocks(userId, cartItems, cartTotal, productIds, note, addressId, isPickUp, (error) => {
+                    if (!error) {
+                        res.sendStatus(200)
+                    } else {
+                        res.status(400).send({
+                            error: error
+                        })
+                    }
+                })
             })
     }
 
-    validateStocks = (cartItems, cartTotal, productIds, req, res) => {
+    validateStocks = (userId, cartItems, cartTotal, productIds, note, addressId, isPickUp, resolver) => {
         const getStocks = productIds => new Promise(resolve => productRepository.getStockForProducts(productIds, resolve))
 
         getStocks(productIds)
             .then((stocks) => {
-                console.log(stocks)
                 try {
                     cartItems.forEach((item) => {
                         const stock = stocks.find(stock => stock.id == item.id)
@@ -35,30 +48,25 @@ class CheckoutController {
                             if (!!item.parent_name) {
                                 productFullName = `${item.parent_name} - ${productFullName}`
                             }
-                            res.status(400).send({
-                                error: `Insufficient Stock for ${productFullName}. Only ${stock && stock.stock || 0} remaining`
-                            })
+                            resolver(`Insufficient Stock for ${productFullName}. Only ${stock && stock.stock || 0} remaining`)
                             throw '';
                         }
                     })
 
                     productRepository.reduceStockForProducts(cartItems)
-                    this.createOrder(cartItems, cartTotal, req, res)
+                    this.createOrder(userId, cartItems, cartTotal, note, addressId, isPickUp, resolver)
                 } catch (e) {
                     // do nothing
                 }
             })
     }
 
-    createOrder(cartItems, cartTotal, req, res) {
-        const userId = res.locals.user.id
-        const isPickUp = req.body.is_pick_up || false
-
+    createOrder(userId, cartItems, cartTotal, note, addressId, isPickUp, resolver) {
         orderRepository.createOrder(
             userId,
-            req.body.address_id, 
+            addressId ,
             cartTotal, 
-            req.body.note,
+            note,
             isPickUp,
             (orderId) => {
                 cartRepository.clearUserCart(userId)
@@ -67,7 +75,7 @@ class CheckoutController {
                     orderRepository.createOrderLine(orderId, item.id, item.qty)
                 })
 
-                res.sendStatus(200)
+                resolver(null)
             }
         )
     }
