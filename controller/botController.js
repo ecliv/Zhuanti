@@ -93,9 +93,10 @@ class BotController {
                 })
                 break;
             case "select.product.ask.email":
+                console.log(req.body.queryResult.outputContexts)
                 console.log(req.body)
                 const response = this.askForEmail(productId)
-                res.send(response)
+                res.send("")
                 break;
             case "select.product.email":
                 console.log(req.body.queryResult.outputContexts)
