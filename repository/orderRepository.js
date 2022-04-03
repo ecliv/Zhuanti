@@ -28,7 +28,7 @@ class OrderRepository {
     getOrdersForUser(userId, valueCallback) {
         const query = `select o.id, o.total, o.created, o.status, o.note, o.is_pick_up, a.id as address_id, a.alias, a.phone_number, a.address_line, a.postal_code, 
             p.id as product_id, p.name, parent.name as parent_name, p.image_url, p.price, p.description, i.qty, p.price * i.qty as 'item_total' from orders o 
-        join addresses a on o.address_id = a.id 
+        left join addresses a on o.address_id = a.id 
         join order_items i on o.id = i.order_id
         join products p on i.product_id = p.id
         left join products parent on p.parent_id = parent.id
