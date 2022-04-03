@@ -113,15 +113,25 @@ class BotController {
                     }
                 })
                 break;
+            case "select.product.pickup":
+                sessionData[sessionId].isPickUp = true
+                // TODO: checkout
+                break;
+            case "select.product.delivery":
+                sessionData[sessionId].isPickUp = true
+                const response = this.constructGenericMessage("What is the address to be delivered?", false)
+                res.send(response)
+                break;
+            case "select.product.delivery.address":
+                const address = parameters && parameters.address || ""
+                console.log(address)
+                console.log(req.body)
+                // TODO: save address
+                res.send("")
             default:
                 console.log(req.body)
                 break;
         }
-
-        // ATC FLOW
-        // - email?
-            // - new user - create
-        // - ATC (check for stock)
         // - pick up?
             // - NO: deliver to?
         // - ATC + checkout
