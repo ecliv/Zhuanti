@@ -2,8 +2,8 @@ const categoryRepository = require('../repository/categoryRepository')
 const productRepository = require('../repository/productRepository')
 const userRepository = require('../repository/userRepository')
 const cartRepository = require('../repository/cartRepository')
+const addressRepository = require('../repository/addressRepository')
 
-const CartController = require('./cartController')
 const cartController = require('./cartController')
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -115,6 +115,7 @@ class BotController {
                 break;
             case "select.product.pickup":
                 sessionData[sessionId].isPickUp = true
+                console.log(sessionData[sessionId])
                 // TODO: checkout
                 break;
             case "select.product.delivery":
@@ -123,18 +124,26 @@ class BotController {
                 res.send(response)
                 break;
             case "select.product.delivery.address":
-                const address = parameters && parameters.address || ""
+                const address = req.body.queryResult.queryText
+                const userId = sessionData[sessionId] && sessionData[sessionId].user && sessionData[sessionId].id || 0
                 console.log(address)
                 console.log(req.body)
-                // TODO: save address
-                res.send("")
+                addressRepository.addUserAddress(userId, {
+                    alias: 'bot',
+                    phone_number: '',
+                    address_line: address,
+                    postal_code: ''
+                }, (addressId) => {
+                    sessionData[sessionId].addressId = addressId
+
+                    console.log(sessionData[sessionId])
+                    res.send("")
+                    // TODO: checkout
+                })
             default:
                 console.log(req.body)
                 break;
         }
-        // - pick up?
-            // - NO: deliver to?
-        // - ATC + checkout
     }
 
     registerNewBotUser = (email, sessionId, res) => {

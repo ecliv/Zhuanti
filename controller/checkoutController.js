@@ -1,4 +1,3 @@
-const { resolve } = require('path')
 const cartRepository = require('../repository/cartRepository')
 const orderRepository = require('../repository/orderRepository')
 const productRepository = require('../repository/productRepository')
