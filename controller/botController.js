@@ -125,7 +125,7 @@ class BotController {
                 break;
             case "select.product.delivery.address":
                 const address = req.body.queryResult.queryText
-                const userId = sessionData[sessionId] && sessionData[sessionId].user && sessionData[sessionId].id || 0
+                const userId = sessionData[sessionId] && sessionData[sessionId].user && sessionData[sessionId].user.id || 0
                 console.log(address)
                 console.log(req.body)
                 addressRepository.addUserAddress(userId, {
