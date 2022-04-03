@@ -87,7 +87,7 @@ class BotController {
                 productId = parameters && parameters.id || 0
                 productRepository.getProductDetail(productId, (product) => {
                     if (product.length == 0) {
-                        sessionData[sessionId] = { productId: product[0].id }
+                        sessionData[sessionId] = { productId: productId }
                         const response = this.constructAskForEmailResponse(product[0].id)
                         console.log(response)
                         res.send(response)
