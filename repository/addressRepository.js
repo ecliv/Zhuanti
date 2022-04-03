@@ -16,7 +16,12 @@ class AddressRepository {
     addUserAddress(userId, data, callback) {
         const query = `insert into addresses values(NULL, ?, ?, ?, ?, ?)`
         connection.query(query, [userId, data.alias, data.phone_number, data.address_line, data.postal_code], (err, result, fields) => {
-            callback(result.insertId)
+            console.log(err)
+            if (!err) {
+                callback(result.insertId)
+            } else {
+                callback(null)
+            }
         })
     }
 

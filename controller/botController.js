@@ -130,9 +130,9 @@ class BotController {
                 console.log(req.body)
                 addressRepository.addUserAddress(userId, {
                     alias: 'bot',
-                    phone_number: '',
+                    phone_number: null,
                     address_line: address,
-                    postal_code: ''
+                    postal_code: null
                 }, (addressId) => {
                     sessionData[sessionId].addressId = addressId
 
