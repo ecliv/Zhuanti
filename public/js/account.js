@@ -17,7 +17,6 @@ $(window).ready(function () {
         for (index in data) {
             const order = data[index]
 
-
             html += `<div class="card">
                         <div class="container">
                             <div class="column-25">
