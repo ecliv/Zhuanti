@@ -141,8 +141,6 @@ class BotController {
             case "select.product.delivery.address":
                 const address = req.body.queryResult.queryText
                 const userId = sessionData[sessionId] && sessionData[sessionId].user && sessionData[sessionId].user.id || 0
-                console.log(address)
-                console.log(req.body)
                 addressRepository.addUserAddress(userId, {
                     alias: 'bot',
                     phone_number: null,
@@ -151,9 +149,19 @@ class BotController {
                 }, (addressId) => {
                     sessionData[sessionId].addressId = addressId
 
-                    console.log(sessionData[sessionId])
-                    res.send("")
-                    // TODO: checkout
+                    checkoutController.processCheckout('', addressId, false, userId, (error) => {
+                        if (!!error) {
+                            const response = this.constructGenericMessage(error, true)
+                            res.send(response)
+                        } else {
+                            orderRepository.getLastOrderIdForUser(sessionData[sessionId].user.id, (orderId) => {
+                                const name = sessionData[sessionId].user.first_name || "Dear Customer."
+                                const message = `Thanks ${name} 🥰. Your order number is ${orderId}. We will deliver your coffee soon, please wait for us.`
+                                const response = this.constructGenericMessage(message, true)
+                                res.send(response)
+                            })
+                        }
+                    })
                 })
             default:
                 console.log(req.body)
