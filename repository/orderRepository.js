@@ -13,6 +13,18 @@ class OrderRepository {
         connection.query(query, [orderId, productId, qty])
     }
 
+    getLastOrderIdForUser(userId, valueCallback) {
+        const query = `SELECT id from orders where user_id = ? order by created desc limit 1`
+        connection.query(query, [userId], (err, rows, fields) => {
+            if (err != null) {
+                valueCallback(null)
+            } else {
+                const orderId = rows[0] && rows[0].id
+                valueCallback(orderId)
+            }
+        })
+    }
+
     getOrdersForUser(userId, valueCallback) {
         const query = `select o.id, o.total, o.created, o.status, o.note, a.id as address_id, a.alias, a.phone_number, a.address_line, a.postal_code, 
             p.id as product_id, p.name, parent.name as parent_name, p.image_url, p.price, p.description, i.qty, p.price * i.qty as 'item_total' from orders o 

@@ -5,6 +5,8 @@ const cartRepository = require('../repository/cartRepository')
 const addressRepository = require('../repository/addressRepository')
 
 const cartController = require('./cartController')
+const checkoutController = require('./checkoutController')
+const orderRepository = require('../repository/orderRepository')
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -115,8 +117,21 @@ class BotController {
                 break;
             case "select.product.pickup":
                 sessionData[sessionId].isPickUp = true
+
                 console.log(sessionData[sessionId])
-                // TODO: checkout
+                checkoutController.processCheckout("", null, true, sessionData[sessionId].user.id, (error) => {
+                    if (!!error) {
+                        const response = this.constructGenericMessage(error, true)
+                        res.send(response)
+                    } else {
+                        orderRepository.getLastOrderIdForUser(sessionData[sessionId].user.id, (orderId) => {
+                            const name = sessionData[sessionId].user.first_name || "Dear Customer."
+                            const message = `Thanks ${name} 🥰. Your order number is ${orderId}. Show this number to our barista to pick up your coffee. Order again soon.`
+                            const response = this.constructGenericMessage(message, true)
+                            res.send(response)
+                        })
+                    }
+                })
                 break;
             case "select.product.delivery":
                 sessionData[sessionId].isPickUp = true

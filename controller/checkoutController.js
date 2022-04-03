@@ -10,6 +10,18 @@ class CheckoutController {
         const isPickUp = req.body.is_pick_up || false
         const userId = res.locals.user.id
 
+        this.processCheckout(note, addressId, isPickUp, userId, (error) => {
+            if (!!error) {
+                res.status(400).send({
+                    error: error
+                })
+            } else {
+                res.sendStatus(200)
+            }
+        })
+    }
+
+    processCheckout = (note, addressId, isPickUp, userId, callback) => {
         const getUserCartPromise = userId => new Promise(resolve => cartRepository.getUserCart(userId, resolve))
 
         getUserCartPromise(userId)
@@ -22,13 +34,7 @@ class CheckoutController {
                 })
 
                 this.validateStocks(userId, cartItems, cartTotal, productIds, note, addressId, isPickUp, (error) => {
-                    if (!error) {
-                        res.sendStatus(200)
-                    } else {
-                        res.status(400).send({
-                            error: error
-                        })
-                    }
+                    callback(error)
                 })
             })
     }
