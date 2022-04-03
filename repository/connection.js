@@ -11,7 +11,4 @@ var connection = mysql.createPool({
   database: process.env.DB_DATABASE
 })
 
-connection.connect()
-connection.addListener
-
 module.exports = connection
