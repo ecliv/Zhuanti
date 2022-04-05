@@ -285,6 +285,21 @@ h2 {
   border: none;
 }
 
+.btn-primary {
+  background-color: #593e2c;
+  border: none;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:not(:disabled):not(.disabled):active {
+  background-color: rgb(73, 46, 28);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border: none;
+}
+
+.btn-primary:focus, .btn-primary:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgb(73 46 28 / 50%);
+}
+
 #loginButton {
   background-color: #593e2c;
   color: white;
