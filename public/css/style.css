@@ -291,7 +291,7 @@ h2 {
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:not(:disabled):not(.disabled):active {
-  background-color: rgb(73, 46, 28);
+  background-color: #492e1c;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   border: none;
 }
@@ -309,4 +309,9 @@ h2 {
 #loginButton:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   border: none;
+}
+
+.form-control:focus {
+  border-color: #795e4c;
+  box-shadow: 0 0 0 0.2rem rgb(73 46 28 / 50%);
 }

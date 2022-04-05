@@ -27,6 +27,13 @@ $(window).ready(function () {
             rate: 10000
         });
     });
+
+    globalUser = JSON.parse(localStorage.getItem('user'));
+    if (!!globalUser) {
+        logout.style.display = "block";
+    } else {
+        logout.style.display = "none";
+    }
 });
 
 // Get the modal

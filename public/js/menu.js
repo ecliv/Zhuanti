@@ -61,11 +61,11 @@ function renderProduct(data) {
                         <p>${product.description}</p>`
         
         if (product.children.length == 0) {
-            html += `<button onclick="addToCart(${product.id})">Buy</button>`
+            html += `<button class="btn-primary" onclick="addToCart(${product.id})">Buy</button>`
         } else {
             for (i in product.children) {
                 const child = product.children[i]
-                html += `<button onclick="addToCart(${child.id})">Buy - ${child.name}</button>`
+                html += `<button class="btn-primary" onclick="addToCart(${child.id})">Buy - ${child.name}</button>`
             }
         }
                         
