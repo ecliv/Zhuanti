@@ -54,6 +54,32 @@ loginAcc.onclick = function () {
     modal.style.display = "block";
 }
 
+$("#cart").click(() => {
+    if (!!globalUser) {
+        window.location.href = "cart"
+        return;
+    }
+    modal.style.display = "block";
+})
+
+$("#registerLink").click(() => {
+    $("#myModal").hide()
+    $("#registerModal").show()
+})
+
+$("#loginLink").click(() => {
+    $("#myModal").show()
+    $("#registerModal").hide()
+})
+
+$("#registerModal").click(() => {
+    $("#registerModal").hide()
+})
+
+$("#registerClose").click(() => {
+    $("#registerModal").hide()
+})
+
 span.onclick = function () {
     modal.style.display = "none";
 }
@@ -66,7 +92,7 @@ window.onclick = function (e) {
 
 logout.onclick = function (e) {
     localStorage.removeItem("user");
-    location.reload();
+    location.href = "/"
 }
 
 //login's function
