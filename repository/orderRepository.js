@@ -1,9 +1,9 @@
 const connection = require('./connection')
 
 class OrderRepository {
-    createOrder(userId, addressId, total, note, callback) {
-        const query = `insert into orders values(NULL, ?, ?, ?, CURRENT_TIMESTAMP, 'waiting payment', ?)`
-        connection.query(query, [userId, addressId, total, note], (err, result, fields) => {
+    createOrder(userId, addressId, total, note, isPickUp, callback) {
+        const query = `insert into orders values(NULL, ?, ?, ?, CURRENT_TIMESTAMP, 'waiting payment', ?, ?)`
+        connection.query(query, [userId, addressId, total, note, isPickUp], (err, result, fields) => {
             callback(result.insertId)
         })
     }
@@ -13,13 +13,25 @@ class OrderRepository {
         connection.query(query, [orderId, productId, qty])
     }
 
+    getLastOrderIdForUser(userId, valueCallback) {
+        const query = `SELECT id from orders where user_id = ? order by created desc limit 1`
+        connection.query(query, [userId], (err, rows, fields) => {
+            if (err != null) {
+                valueCallback(null)
+            } else {
+                const orderId = rows[0] && rows[0].id
+                valueCallback(orderId)
+            }
+        })
+    }
+
     getOrdersForUser(userId, valueCallback) {
-        const query = `select o.id, o.total, o.created, o.status, o.note, a.id as address_id, a.alias, a.phone_number, a.address_line, a.postal_code, 
+        const query = `select o.id, o.total, o.created, o.status, o.note, o.is_pick_up, a.id as address_id, a.alias, a.phone_number, a.address_line, a.postal_code, 
             p.id as product_id, p.name, parent.name as parent_name, p.image_url, p.price, p.description, i.qty, p.price * i.qty as 'item_total' from orders o 
-        join addresses a on o.address_id = a.id 
+        left join addresses a on o.address_id = a.id 
         join order_items i on o.id = i.order_id
         join products p on i.product_id = p.id
-        join products parent on p.parent_id = parent.id
+        left join products parent on p.parent_id = parent.id
         where o.user_id = ?
         order by o.created desc`
         connection.query(query, [userId], (err, rows, fields) => {
@@ -65,6 +77,7 @@ class OrderRepository {
                             created: row.created,
                             status: row.status,
                             note: row.note,
+                            isPickUp: !!row.is_pick_up,
                             address: {
                                 id: row.address_id,
                                 alias: row.alias,

@@ -44,10 +44,11 @@ var loginAcc = document.getElementById("account");
 var logout = document.getElementById("logout");
 
 var span = document.getElementsByClassName("close")[0];
-let globalUser = null;
+let globalUser = localStorage.getItem('user')
 
 loginAcc.onclick = function () {
     if (!!globalUser) {
+        window.location.href = "account"
         return;
     }
     modal.style.display = "block";

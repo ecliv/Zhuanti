@@ -1,4 +1,6 @@
 var createError = require('http-errors');
+var fs = require('fs');
+var https = require('https');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -49,6 +51,15 @@ app.use(function(err, req, res, next) {
 });
 
 console.log(`listening on port ${process.env.PORT}`)
+if (process.env.USE_SSL == "true") {
+  const credentials = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+  };
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(443);
+}
+  
 app.listen(process.env.PORT)
 
 module.exports = app;

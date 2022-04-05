@@ -34,6 +34,11 @@ router.get('/account', function (req, res, next) {
   const baseUrl = process.env.BASE_URL
   res.render('account/account.html', { baseUrl })
 });
+
+router.get('/cart', function (req, res, next) {
+  const baseUrl = process.env.BASE_URL
+  res.render('cart/cart.html', { baseUrl })
+});
 // GET VS POST -> HTTP Method
 // PATCH, DELETE
 

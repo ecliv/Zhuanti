@@ -4,7 +4,9 @@ const crypto = require("crypto-js");
 class ProductController {
     registerUser(req, res, next) {
         const password = crypto.AES.encrypt(req.body.password, process.env.SECRET)
-        repository.registerUser(req.body, password)
+        repository.registerUser(req.body, password, () => {
+            console.log("user registered")
+        })
         res.sendStatus(201)
     }
 
@@ -41,7 +43,7 @@ class ProductController {
             res.send({
                 is_success: true,
                 user: {
-                    firstName: user.fisrt_name,
+                    firstName: user.first_name,
                     lastName: user.last_name,
                     isStaff: user.is_staff == 1,
                     email: user.email,

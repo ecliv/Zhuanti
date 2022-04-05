@@ -8,7 +8,9 @@ class AddressController {
     }
 
     addUserAddress(req, res, next) {
-        repository.addUserAddress(res.locals.user.id, req.body)
+        repository.addUserAddress(res.locals.user.id, req.body, () => {
+            // do nothing
+        })
         res.sendStatus(201)
     }
 
