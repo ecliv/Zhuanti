@@ -5,9 +5,21 @@ class ProductController {
     registerUser(req, res, next) {
         const password = crypto.AES.encrypt(req.body.password, process.env.SECRET)
         repository.registerUser(req.body, password, () => {
-            console.log("user registered")
+            repository.getUserFromEmail(req.body.email, (user) => {
+                const rawToken = process.env.SECRET + ":" + user.id + ":" + Date.now()
+
+                res.send({
+                    is_success: true,
+                    user: {
+                        firstName: user.first_name,
+                        lastName: user.last_name,
+                        isStaff: user.is_staff == 1,
+                        email: user.email,
+                        token: btoa(rawToken)
+                    }
+                })
+            })
         })
-        res.sendStatus(201)
     }
 
     getMe(req, res, next) {

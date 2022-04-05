@@ -72,10 +72,6 @@ $("#loginLink").click(() => {
     $("#registerModal").hide()
 })
 
-$("#registerModal").click(() => {
-    $("#registerModal").hide()
-})
-
 $("#registerClose").click(() => {
     $("#registerModal").hide()
 })
@@ -87,6 +83,8 @@ span.onclick = function () {
 window.onclick = function (e) {
     if (e.target == modal) {
         modal.style.display = "none";
+    } else if (e.target.id == "registerModal") {
+        $("#registerModal").hide()
     }
 }
 
@@ -110,9 +108,7 @@ function doLogin() {
                     password: pass
                 },
                 success: function (response) {
-                    console.log(response)
                     if (response.is_success) {
-                        console.log(response);
                         globalUser = response.user;
                         localStorage.setItem('user', JSON.stringify(response.user));
                         modal.style.display = "none";
@@ -124,5 +120,37 @@ function doLogin() {
                 }
             });
     }
-    return false;
+}
+
+function doRegister() {
+    const email = $("#registerEmail").val();
+    const pass = $("#registerPassword").val();
+    const firstName = $("#registerFirstName").val();
+    const lastName = $("#registerLastName").val();
+
+    if (email != "" && pass != "" && (firstName != "" || lastName != "")) {
+        $("#loading_spinner").css({ "display": "block" });
+        $.ajax
+            ({
+                type: 'post',
+                url: 'api/user/register',
+                data: {
+                    email: email,
+                    password: pass,
+                    first_name: firstName,
+                    last_name: lastName
+                },
+                success: function (response) {
+                    if (response.is_success) {
+                        globalUser = response.user;
+                        localStorage.setItem('user', JSON.stringify(response.user));
+                        $("#registerModal").hide()
+                        logout.style.display = "block";
+                    } else {
+                        alert(response.error_message)
+                    }
+
+                }
+            });
+    }
 }
