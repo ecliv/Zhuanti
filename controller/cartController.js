@@ -54,7 +54,7 @@ class CartController {
     deleteFromCart(req, res, next) {
         const product_id = req.body.product_id
         const userId = res.locals.user.id
-        const removeAll = req.body.remove_all
+        const removeAll = req.body.remove_all == "true"
 
         repository.getProductCountInCart(userId, product_id, (qty) => {
             if (qty == 1 || removeAll) {

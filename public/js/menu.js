@@ -27,8 +27,17 @@ function addToCart(productId) {
 }
 
 function sendAddToCartRequest(product) {
-    // TODO: hit ajax
-    // waiting for auth header
+    const userData = JSON.parse(localStorage.getItem('user'))
+    $.ajax({
+        type: 'post',
+        url: "api/cart",
+        headers: {"Authorization": `jwt ${userData.token}`},
+        data: {
+            product_id: product.id
+        }
+    }).done((data) => {
+        alert("Product is added to your cart.")
+    })
 }
 
 let products

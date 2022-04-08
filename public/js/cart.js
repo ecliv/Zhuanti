@@ -68,7 +68,6 @@ function addToCart(productId) {
     }).done((data) => {
         loadCart()
     })
-    console.log("ATC", productId)
 }
 
 function decreaseFromCart(productId) {
