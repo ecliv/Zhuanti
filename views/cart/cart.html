@@ -21,7 +21,7 @@
                 Remove all</h5>
         </div>
         <div class="card">
-            <div class="container scroll">
+            <div class="container" id="cartContainer">
                 <div class="column-25">
                     <img src="images/luwakCoffee.jpg" alt="">
                 </div>
@@ -29,14 +29,14 @@
                     <div class="column-50">
                         <h4><b>Belanjaan</b></h4>
                         <div class="counter">
-                            <div class="btn">+</div>
+                            <button class="btn-qty"><span style="width: 40px; text-align: center;">+</span></button>
                             <div class="count">2</div>
-                            <div class="btn">-</div>
+                            <button class="btn-qty"><span style="width: 40px; text-align: center;">-</span></button>
                         </div>
                     </div>
                     <div class="column-50">
                         <div class="prices">
-                            <div class="amount">NTD 29</div>
+                            <div class="amount">$ 29</div>
                             <div class="remove"><u>Remove</u></div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="total-amount" ”>$6.18</div>
                 </div>
-                <button class="button">Checkout</button>
+                <button class="btn btn-primary" id="checkoutButton">Checkout</button>
             </div>
         </div>
 

@@ -85,8 +85,10 @@ div.scroll {
   align-items: center;
 }
 
-.btn {
-  width: 40px;
+.btn-qty {
+  width: 40px !important;
+  margin-right: 1em;
+  border: none;
   height: 40px;
   border-radius: 50%;
   background-color: #d9d9d9;
@@ -124,14 +126,14 @@ div.scroll {
 }
 
 hr {
-  width: 66%;
   float: right;
   margin-right: 5%;
 }
 .checkout {
   float: right;
   margin-right: 5%;
-  width: 28%;
+  width: 30%;
+  margin-left: auto;
 }
 .total {
   width: 100%;
@@ -165,4 +167,14 @@ hr {
   font-size: 16px;
   font-weight: 600;
   color: #202020;
+}
+#cartContainer img {
+  height: auto !important;
+}
+.counter div {
+  margin-right: 1em;
+}
+
+#checkoutButton {
+  margin-bottom: 16px;
 }
