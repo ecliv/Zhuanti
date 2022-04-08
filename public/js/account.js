@@ -12,7 +12,6 @@ $(window).ready(function () {
         url: "api/orders",
         headers: {"Authorization": `jwt ${userData.token}`}
     }).done((data) => {
-        console.log(data)
         let html = ''
         for (index in data) {
             const order = data[index]

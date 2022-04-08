@@ -25,6 +25,7 @@ router.delete('/address', addressController.deleteUserAddress)
 router.get('/cart', cartController.getUserCart)
 router.post('/cart', cartController.addToCart)
 router.delete('/cart', cartController.deleteFromCart)
+router.delete('/cart/all', cartController.clearUserCart)
 
 router.post('/checkout', checkoutController.checkout)
 router.get('/orders', orderController.getUserOrders)

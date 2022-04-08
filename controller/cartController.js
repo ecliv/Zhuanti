@@ -19,7 +19,7 @@ class CartController {
         })
     }
 
-    addToCart(req, res, next) {
+    addToCart = (req, res, next) => {
         const product_id = req.body.product_id
         const userId = res.locals.user.id
         
@@ -54,8 +54,10 @@ class CartController {
     deleteFromCart(req, res, next) {
         const product_id = req.body.product_id
         const userId = res.locals.user.id
+        const removeAll = req.body.remove_all
+
         repository.getProductCountInCart(userId, product_id, (qty) => {
-            if (qty == 1) {
+            if (qty == 1 || removeAll) {
                 repository.removeProductFromCart(userId, product_id)
             } else {
                 repository.decreateProductInCart(userId, product_id)
@@ -64,6 +66,12 @@ class CartController {
 
             res.sendStatus(200)
         })
+    }
+
+    clearUserCart(req, res, next) {
+        const userId = res.locals.user.id
+        repository.clearUserCart(userId)
+        res.sendStatus(200)
     }
 }
 

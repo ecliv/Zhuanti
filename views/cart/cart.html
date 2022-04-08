@@ -14,7 +14,7 @@
     <div class="container">
         <div class=”Header”>
             <h1 class=”Heading” style="text-align: center;">Shopping Cart</h1>
-            <h5 class=”Action” style="text-align: end; 
+            <h5 onclick="clearCart()" class=”Action” style="text-align: end; 
                    text-decoration: underline; 
                    color: #e44c4c; 
                    cursor: pointer;">
@@ -22,34 +22,15 @@
         </div>
         <div class="card">
             <div class="container" id="cartContainer">
-                <div class="column-25">
-                    <img src="images/luwakCoffee.jpg" alt="">
-                </div>
-                <div class="column-75">
-                    <div class="column-50">
-                        <h4><b>Belanjaan</b></h4>
-                        <div class="counter">
-                            <button class="btn-qty"><span style="width: 40px; text-align: center;">+</span></button>
-                            <div class="count">2</div>
-                            <button class="btn-qty"><span style="width: 40px; text-align: center;">-</span></button>
-                        </div>
-                    </div>
-                    <div class="column-50">
-                        <div class="prices">
-                            <div class="amount">$ 29</div>
-                            <div class="remove"><u>Remove</u></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <hr>
             <div class="checkout">
                 <div class="total">
                     <div>
                         <div class="Subtotal">Sub-Total</div>
-                        <div class="items">2 items</div>
+                        <div class="items" id="cartTotalItems">0 items</div>
                     </div>
-                    <div class="total-amount" ”>$6.18</div>
+                    <div class="total-amount" id="cartTotalAmount">$0.00</div>
                 </div>
                 <button class="btn btn-primary" id="checkoutButton">Checkout</button>
             </div>
@@ -57,6 +38,7 @@
 
     </div>
 </body>
+<script src="js/cart.js"></script>
 <%- include('../template/footer.html'); %>
 
 </html>
