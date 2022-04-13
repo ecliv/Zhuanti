@@ -1,3 +1,4 @@
+const crypto = require("crypto-js");
 const categoryRepository = require('../repository/categoryRepository')
 const productRepository = require('../repository/productRepository')
 const userRepository = require('../repository/userRepository')
