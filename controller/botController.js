@@ -109,7 +109,7 @@ class BotController {
                     if (!!user) {
                         console.log("user found", user.id)
                         sessionData[sessionId].user = user
-                        this.processCart(sessionId, res)
+                        this.processCart(sessionId, res, null)
                     } else {
                         this.registerNewBotUser(email, sessionId, res)
                     }
@@ -171,19 +171,21 @@ class BotController {
 
     registerNewBotUser = (email, sessionId, res) => {
         console.log("registering new user")
+        const generatedPassword = Math.random().toString().substr(2, 6)
+        const password = crypto.AES.encrypt(generatedPassword, process.env.SECRET)
         userRepository.registerUser({
             email: email,
             first_name: "",
             last_name: ""
-        }, "not_set", () => {
+        }, password, () => {
             userRepository.getUserFromEmail(email, (user) => {
                 sessionData[sessionId].user = user
-                this.processCart(sessionId, res)
+                this.processCart(sessionId, res, generatedPassword)
             })
         })
     }
 
-    processCart = (sessionId, res) => {
+    processCart = (sessionId, res, password) => {
         console.log("processing cart")
         const userId = sessionData[sessionId].user.id
         const productId = sessionData[sessionId].productId
@@ -196,7 +198,11 @@ class BotController {
                 res.send(response)
             } else {
                 const name = sessionData[sessionId].user.first_name || "Dear Customer."
-                const response = this.constructGenericMessage(`Thanks ${name}! Would you like it to be delivered or pick-up?`, false)
+                let message = `Thanks ${name}! Would you like it to be delivered or pick-up?`
+                if (!sessionData[sessionId].user.first_name) {
+                    message += ` By the way, I created a new account for you. Please login with your email and this auto-generated password: ${password}`
+                }
+                const response = this.constructGenericMessage(message, false)
                 console.log(response)
                 res.send(response)
             }
