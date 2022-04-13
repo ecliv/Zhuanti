@@ -6,6 +6,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 $(window).ready(function () {
     const user = JSON.parse(localStorage.getItem('user'))
     $("#user_name").html(`${user.firstName || ""} ${user.lastName || ""}`)
+    $("#user_email").html(user.email)
 
     const userData = JSON.parse(localStorage.getItem('user'))
     $.ajax({
