@@ -35,6 +35,11 @@ router.get('/account', function (req, res, next) {
   res.render('account/account.html', { baseUrl })
 });
 
+router.get('/change-password', function (req, res, next) {
+  const baseUrl = process.env.BASE_URL
+  res.render('account/changePassword.html', { baseUrl })
+});
+
 router.get('/cart', function (req, res, next) {
   const baseUrl = process.env.BASE_URL
   res.render('cart/cart.html', { baseUrl })
