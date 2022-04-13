@@ -70,7 +70,7 @@
                         <div class="text-center">
                           <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         </div>
-                        <form class="user" onsubmit="doLogin()">
+                        <form class="user" id="loginForm">
                           <div class="form-group">
                             <input type="email" class="form-control form-control-user" id="exampleInputEmail"
                               aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -80,7 +80,7 @@
                               placeholder="Password">
                           </div>
 
-                          <button class="btn btn-primary btn-user btn-block" id="loginButton" onclick="doLogin()">
+                          <button class="btn btn-primary btn-user btn-block" id="loginButton">
                             Login
                           </button>
 
@@ -128,7 +128,7 @@
                         <div class="text-center">
                           <h1 class="h4 text-gray-900 mb-4">Create Your Account!</h1>
                         </div>
-                        <form class="user" onsubmit="doRegister()">
+                        <form class="user" id="registerForm">
                           <div class="form-group">
                             <input type="email" class="form-control form-control-user" id="registerEmail"
                               aria-describedby="emailHelp" placeholder="Enter Email Address...">

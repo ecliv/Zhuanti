@@ -94,7 +94,8 @@ logout.onclick = function (e) {
 }
 
 //login's function
-function doLogin() {
+$("#loginForm").submit((e) => {
+    e.preventDefault()
     var email = $("#exampleInputEmail").val();
     var pass = $("#exampleInputPassword").val();
     if (email != "" && pass != "") {
@@ -113,16 +114,17 @@ function doLogin() {
                         localStorage.setItem('user', JSON.stringify(response.user));
                         modal.style.display = "none";
                         logout.style.display = "block";
+                        location.reload()
                     } else {
                         alert(response.error_message)
                     }
-
                 }
             });
     }
-}
+})
 
-function doRegister() {
+$("#registerForm").submit((e) => {
+    e.preventDefault()
     const email = $("#registerEmail").val();
     const pass = $("#registerPassword").val();
     const firstName = $("#registerFirstName").val();
@@ -146,11 +148,11 @@ function doRegister() {
                         localStorage.setItem('user', JSON.stringify(response.user));
                         $("#registerModal").hide()
                         logout.style.display = "block";
+                        location.reload()
                     } else {
                         alert(response.error_message)
                     }
-
                 }
             });
     }
-}
+})
