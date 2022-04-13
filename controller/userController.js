@@ -68,6 +68,8 @@ class ProductController {
     changePassword = (req, res, next) => {
         const email = res.locals.user.email
         const userId = res.locals.user.id
+        const firstName = req.body.first_name
+        const lastName = req.body.last_name
 
         repository.getUserFromEmail(email, (user) => {
             const decryptedPassword = crypto.AES.decrypt(user.password, process.env.SECRET)
@@ -82,7 +84,7 @@ class ProductController {
             }
 
             const newPassword = crypto.AES.encrypt(req.body.new_password, process.env.SECRET)
-            repository.changeUserPassword(userId, newPassword)
+            repository.changeUserProfile(userId, newPassword, firstName, lastName)
 
             res.send({
                 is_success: true

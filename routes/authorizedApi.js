@@ -16,7 +16,7 @@ const middleware = require('./userMiddleware');
 router.use(middleware.validateUser)
 
 router.get('/me', userController.getMe)
-router.post('/me/change-password', userController.changePassword)
+router.post('/me/update-profile', userController.changePassword)
 
 router.get('/address', addressController.getUserAddress)
 router.post('/address', addressController.addUserAddress)

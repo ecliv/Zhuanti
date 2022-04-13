@@ -31,9 +31,9 @@ class UserRepository {
         })
     }
 
-    changeUserPassword(id, password) {
-        const query = `UPDATE users SET password = ? WHERE id = ?`
-        connection.query(query, ["" + password, id])
+    changeUserProfile(id, password, firstName, lastName) {
+        const query = `UPDATE users SET password = ?, first_name = ?, last_name = ? WHERE id = ?`
+        connection.query(query, ["" + password, firstName, lastName, id])
     }
 }
 
