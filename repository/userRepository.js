@@ -30,6 +30,11 @@ class UserRepository {
             }
         })
     }
+
+    changeUserPassword(id, password) {
+        const query = `UPDATE users SET password = ? WHERE id = ?`
+        connection.query(query, [password, id])
+    }
 }
 
 module.exports = new UserRepository()
