@@ -40,6 +40,11 @@ router.get('/change-password', function (req, res, next) {
   res.render('account/changePassword.html', { baseUrl })
 });
 
+router.get('/set-address', function (req, res, next) {
+  const baseUrl = process.env.BASE_URL
+  res.render('account/set-address.html', { baseUrl })
+});
+
 router.get('/cart', function (req, res, next) {
   const baseUrl = process.env.BASE_URL
   res.render('cart/cart.html', { baseUrl })

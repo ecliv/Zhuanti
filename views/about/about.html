@@ -1,13 +1,16 @@
 <html>
-  <title>About Cave Cafe</title>
-  <%- include('../template/header.html'); %>
+<style>
+  p {
+    font-size: large;
+  }
+</style>
+<title>About Cave Cafe</title>
+<%- include('../template/header.html'); %>
   <link rel="stylesheet" href="css/style.css" />
+
   <body>
     <section class="container-fluid">
-      <div
-        class="row justify-content-center align-items-center d-none d-lg-inline px-0"
-        style="text-align: center"
-      >
+      <div class="row justify-content-center align-items-center d-none d-lg-inline px-0" style="text-align: center">
         <h1 class="text-center">ABOUT</h1>
       </div>
     </section>
@@ -54,14 +57,17 @@
           <p class="text-center">
             No. 145號, Xingda Rd, South District, Taichung City, 402
           </p>
-          <button>Find Me!</button>
+          <button
+            onclick="window.location.href='https://www.google.com/maps/place/National+Chung+Hsing+University/@24.1227129,120.6753028,17z/data=!4m5!3m4!1s0x34693cfcecffe9d9:0xe28afadc0dad203a!8m2!3d24.123552!4d120.675326';">Find
+            Me!</button>
         </div>
         <div class="col-lg-6 content">
-          <img src="images/coffeeShop.jpg" class="img-fluid" alt="" />
+          <img src="images/coffeePlate.jpg" class="img-fluid" alt="" />
         </div>
       </div>
     </section>
   </body>
   <script src="js/app.js"></script>
   <%- include('../template/footer.html'); %>
+
 </html>

@@ -11,6 +11,13 @@
 </head>
 
 <body>
+    <style>
+        .selectPickup {
+            font-size: 22px;
+            font-weight: 700;
+            color: #202020;
+        }
+    </style>
     <div class="container">
         <div class=”Header”>
             <h1 class=”Heading” style="text-align: center;">Shopping Cart</h1>
@@ -24,6 +31,13 @@
             <div class="container" id="cartContainer">
             </div>
             <hr>
+            <div class="selectPickup">
+                <label for="pickup">Do you want your order to be delivered/picked up by yourself?</label><br>
+                <input type="radio" id="delivery" name="pickup" value="delivery">
+                <label for="delivery"> I want it to be delivered!</label><br>
+                <input type="radio" id="selfPickup" name="pickup" value="selfPickup">
+                <label for="selfPickup"> I want to pick it up by myself</label>
+            </div>
             <div class="checkout">
                 <div class="total">
                     <div>
