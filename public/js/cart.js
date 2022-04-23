@@ -5,7 +5,23 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 $(window).ready(function () {
     loadCart()
+    loadAddress()
 })
+
+let globalAddressId = 0
+
+const loadAddress = () => {
+    const userData = JSON.parse(localStorage.getItem('user'))
+
+    $.ajax({
+        type: 'get',
+        url: 'api/address',
+        headers: {"Authorization": `jwt ${userData.token}`},
+        success: function (response) {
+            globalAddressId = response && response[0] && response[0].id
+        }
+    })
+}
 
 const loadCart = () => {
     const userData = JSON.parse(localStorage.getItem('user'))
@@ -108,5 +124,31 @@ function clearCart() {
         headers: {"Authorization": `jwt ${userData.token}`}
     }).done((data) => {
         loadCart()
+    })
+}
+
+function checkout() {
+    const userData = JSON.parse(localStorage.getItem('user'))
+    const pickUp = $('input[name="pickup"]:checked').val();
+    if (globalAddressId == 0) {
+        alert("Please set your address first.")
+        return
+    } else if (!pickUp) {
+        alert("Please choose either you want your order to be delivered / picked up?")
+        return
+    }
+
+    $.ajax({
+        type: 'post',
+        url: "api/checkout",
+        headers: {"Authorization": `jwt ${userData.token}`},
+        data: {
+            "address_id": globalAddressId,
+            "note": "",
+            "is_pick_up": pickUp == "selfPickup" ? 1 : 0
+        }
+    }).done((data) => {
+        alert("We received your order!")
+        window.location.href = "account"
     })
 }

@@ -4,6 +4,7 @@ class OrderRepository {
     createOrder(userId, addressId, total, note, isPickUp, callback) {
         const query = `insert into orders values(NULL, ?, ?, ?, CURRENT_TIMESTAMP, 'waiting payment', ?, ?)`
         connection.query(query, [userId, addressId, total, note, isPickUp], (err, result, fields) => {
+            console.log(err)
             callback(result.insertId)
         })
     }
