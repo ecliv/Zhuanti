@@ -1,3 +1,22 @@
+$(window).ready(function () {
+    let userData = JSON.parse(localStorage.getItem('user'))
+
+    $.ajax({
+        type: 'get',
+        url: 'api/address',
+        headers: {"Authorization": `jwt ${userData.token}`},
+        success: function (response) {
+            if (response && response[0]) {
+                const address = response[0]
+                $("#alias").val(address.alias)
+                $("#phoneNumber").val(address.phone_number)
+                $("#addressLine").val(address.address_line)
+                $("#postalCode").val(address.postal_code)
+            }
+        }
+    })
+})
+
 $("#setAddressForm").submit((e) => {
     e.preventDefault()
 
