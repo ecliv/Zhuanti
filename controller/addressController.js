@@ -9,9 +9,8 @@ class AddressController {
 
     addUserAddress(req, res, next) {
         repository.addUserAddress(res.locals.user.id, req.body, () => {
-            // do nothing
+            res.sendStatus(201)
         })
-        res.sendStatus(201)
     }
 
     updateUserAddress(req, res, next) {

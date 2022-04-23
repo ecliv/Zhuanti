@@ -14,9 +14,14 @@ class AddressRepository {
     }
 
     addUserAddress(userId, data, callback) {
+        console.log(userId)
+        const deleteQuery = `delete from addresses where user_id = ?`
+        connection.query(deleteQuery, [userId])
+
         const query = `insert into addresses values(NULL, ?, ?, ?, ?, ?)`
         connection.query(query, [userId, data.alias, data.phone_number, data.address_line, data.postal_code], (err, result, fields) => {
             if (!err) {
+                console.log(result.insertId)
                 callback(result.insertId)
             } else {
                 console.log(err)
